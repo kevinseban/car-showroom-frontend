@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import CarCard from './CarCard';
+import carimage from './cars/car-image.webp';
 
 function Home() {
   return (
@@ -16,13 +17,13 @@ function Home() {
         <h2 className="mt-5">Featured Cars</h2>
         <div className="row">
           <div className="col-md-4">
-            <CarCard />
+            <CarCard carId="1" name="Car name" price="price" src={carimage} transmission="Automatic" mileage="20" />
           </div>
           <div className="col-md-4">
-            <CarCard />
+            <CarCard carId="1" name="Car name" price="price" src={carimage} transmission="Automatic" mileage="20" />
           </div>
           <div className="col-md-4">
-            <CarCard />
+            <CarCard carId="1" name="Car name" price="price" src={carimage} transmission="Automatic" mileage="20" />
           </div>
         </div>
 
