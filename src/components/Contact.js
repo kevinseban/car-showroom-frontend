@@ -3,15 +3,14 @@ import Header from './Header';
 import Footer from './Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone, faAddressCard } from '@fortawesome/free-solid-svg-icons';
-import ContactCSS from './StyleSheets/Contact.module.css';
 
 function Contact() {
     return (
         <div>
             <Header />
-            <div className={ContactCSS.BackGround}>
+            <div className='bg-dark text-white pt-2 overflow-hidden'>
                 <div class="row">
-                    <div className={ContactCSS.squareBox}>
+                    <div className='squareBox'>
                         <div className='container text-center p-5'>
                             <h1 className='display-3 pb-3'>Contact Us</h1>
                             <h2 className='h3 pb-2'>Contact Information</h2>
@@ -20,29 +19,23 @@ function Contact() {
                             <div className="py-1"><FontAwesomeIcon icon={faAddressCard} />&nbsp;&nbsp;&nbsp;123 Main Street, City, Country</div>
                         </div>
                     </div>
-
-
-                    <div className={ContactCSS.squareBox}>
-                        <div className='container p-5'>
+                    <div className='squareBox'>
+                        <div className='container p-2'>
                             <form>
                                 <h1 className='display-3 pb-4 text-center'>Message Us</h1>
                                 <div class="form-outline mb-4">
-                                    <input type="text" id="formIn1" class="form-control" />
-                                    <label class="form-label" for="formIn1">Name</label>
+                                    <input type="text" id="formIn1" class="form-control" placeholder="Name" />
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <input type="email" id="formIn2" class="form-control" />
-                                    <label class="form-label" for="formIn2">Email address</label>
+                                    <input type="email" id="formIn2" class="form-control" placeholder="Email address" />
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <input type="phone" id="formIn3" class="form-control" />
-                                    <label class="form-label" for="formIn3">Phone no.</label>
+                                    <input type="phone" id="formIn3" class="form-control" placeholder="Phone no." />
                                 </div>
                                 <div class="form-outline mb-4">
-                                    <textarea class="form-control" id="formIn4" rows="4"></textarea>
-                                    <label class="form-label" for="formIn4">Message</label>
+                                    <textarea class="form-control" id="formIn4" rows="3" placeholder="Message"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-outline-light btn-block mb-4 w-100" >Submit</button>
+                                <button type="submit" class="btn btn-outline-light btn-block mb-4 w-100">Submit</button>
                             </form>
                         </div>
                     </div>
