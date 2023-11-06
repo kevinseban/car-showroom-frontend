@@ -1,0 +1,17 @@
+.BackGround{
+    background-color: #191d20 ;
+    background-image: url("../Images/ContactBackground.png");
+    background-repeat: repeat;
+    color:white;
+    padding-top: 400px;
+    padding-bottom: 400px;
+}
+
+.squareBox{
+    margin:auto;
+    max-width: 600px;
+    border: 1px solid black;
+    box-shadow: 16px 13px 45px -1px rgba(0,0,0,0.61);
+    -webkit-box-shadow: 16px 13px 45px -1px rgba(0,0,0,0.61);
+    -moz-box-shadow: 16px 13px 45px -1px rgba(0,0,0,0.61);
+}
