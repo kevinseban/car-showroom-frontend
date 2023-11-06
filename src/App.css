@@ -1,0 +1,9 @@
+.car-card{
+    position: relative;
+    border: 1px solid black;
+}
+.car-title{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
