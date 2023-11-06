@@ -33,16 +33,6 @@ function Home() {
           and find the perfect car for your needs.
         </p>
 
-        <h2 className="mt-5">Contact Us</h2>
-        <p>If you have any questions or need assistance, feel free to contact us:</p>
-        <ul>
-          <li>
-            <strong>Email:</strong> contact@car360.com
-          </li>
-          <li>
-            <strong>Phone:</strong> 123-456-7890
-          </li>
-        </ul>
       </div>
       <Footer />
     </div>

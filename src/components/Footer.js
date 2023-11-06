@@ -10,8 +10,8 @@ function Footer() {
                     <div className='row'>
                         <div className='col-lg-4 col-md-12 d-flex flex-column justify-content-center align-items-start gap-1 pb-4'>
                             <p className="py-1 fw-bold lead">CAR360</p>
-                            <div className="py-1"><FontAwesomeIcon icon={faPhone} />&nbsp;&nbsp;&nbsp;+91 1234567890</div>
-                            <div className="py-1"><FontAwesomeIcon icon={faEnvelope} />&nbsp;&nbsp;&nbsp;<a href='mailto:' className='text-decoration-none text-white'>car360@email.com</a></div>
+                            <div className="py-1 text-secondary"><FontAwesomeIcon icon={faPhone} />&nbsp;&nbsp;&nbsp;+91 1234567890</div>
+                            <div className="py-1 text-secondary"><FontAwesomeIcon icon={faEnvelope} />&nbsp;&nbsp;&nbsp;<a href='mailto:' className='text-decoration-none text-secondary'>car360@email.com</a></div>
                         </div>
                         <div className='col-lg-4 col-md-12 d-flex flex-column justify-content-center align-items-lg-center gap-1 pb-4'>
                             <h5>Useful Links</h5>
