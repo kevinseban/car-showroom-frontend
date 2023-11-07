@@ -32,3 +32,8 @@
 .ft{
     justify-self: flex-end;
 }
+
+.car-detail-img{
+    object-fit: cover;
+    border-radius: 1rem;
+}
