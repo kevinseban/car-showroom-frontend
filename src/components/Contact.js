@@ -6,9 +6,9 @@ import { faEnvelope, faPhone, faAddressCard } from '@fortawesome/free-solid-svg-
 
 function Contact() {
     return (
-        <>
+        <div className='parent'>
             <Header />
-            <div className='bg-dark text-white pt-2 overflow-hidden'>
+            <div className='content bg-dark text-white pt-2 overflow-hidden pt-xl-5 pt-lg-5'>
                 <div class="row">
                     <div className='squareBox'>
                         <div className='container text-center p-5'>
@@ -42,7 +42,7 @@ function Contact() {
                 </div>
             </div>
             <Footer />
-        </>
+        </div>
     );
 }
 
