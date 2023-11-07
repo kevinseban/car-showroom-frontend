@@ -1,35 +1,51 @@
 [
-    {
-      "carId": "1",
-      "name": "Car name 1",
-      "price": "Price 1",
-      "src": "creta/b-main.jpg",
-      "transmission": "Automatic",
-      "mileage": "20"
-    },
-    {
-      "carId": "2",
-      "name": "Car name 2",
-      "price": "Price 2",
-      "src": "car-image.webp",
-      "transmission": "Manual",
-      "mileage": "18"
-    },
-    {
-      "carId": "3",
-      "name": "Car name 3",
-      "price": "Price 3",
-      "src": "car-image.webp",
-      "transmission": "Manual",
-      "mileage": "18"
-    },
-    {
-      "carId": "4",
-      "name": "Car name 4",
-      "price": "Price 4",
-      "src": "car-image.webp",
-      "transmission": "Manual",
-      "mileage": "18"
-    }
-  ]
-  
+  {
+    "carId": "1",
+    "name": "Car name 1",
+    "price": "Price 1",
+    "src": "creta/b-main.jpg",
+    "colors": [
+      {
+        "colorId": "1",
+        "name": "Red",
+        "images": [
+          "creta/b-main.jpg",
+          "creta/b1.png",
+          "creta/b2.png",
+          "creta/b3.png"
+        ]
+      },
+      {
+        "colorId": "2",
+        "name": "Blue",
+        "images": [
+          "creta/blue-1.jpg",
+          "creta/blue-2.jpg",
+          "creta/blue-3.jpg"
+        ]
+      }
+    ],
+    "transmission": "Automatic",
+    "mileage": "20",
+    "features": ["Feature 1", "Feature 2", "Feature 3"]
+  },
+  {
+    "carId": "2",
+    "name": "Car name 2",
+    "price": "Price 2",
+    "src": "creta/b-main.jpg",
+    "colors": [
+      {
+        "colorId": "1",
+        "name": "White",
+        "images": [
+          "car/white-1.jpg",
+          "car/white-2.jpg"
+        ]
+      }
+    ],
+    "transmission": "Manual",
+    "mileage": "18",
+    "features": ["Feature A", "Feature B", "Feature C"]
+  }
+]

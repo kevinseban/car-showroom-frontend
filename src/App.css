@@ -33,7 +33,42 @@
     justify-self: flex-end;
 }
 
-.car-detail-img{
-    object-fit: cover;
-    border-radius: 1rem;
+.img-slider-container{
+    aspect-ratio: 11/3;
+}
+
+.img-slider-img {
+    object-fit:scale-down;
+    width: 100%;
+    flex-shrink: 0;
+    flex-grow: 0;
+    display: block;
+    transition: transform 200ms;
+}
+
+.img-slider-btn {
+    display: block;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    padding: 1rem;
+    cursor: pointer;
+    transition: background-color 200ms ease-in-out;
+}
+
+.img-slider-btn>* {
+    stroke: white;
+    fill: black;
+    width: 2rem;
+    height: 2rem;
+    transition: scale 200ms;
+}
+.img-slider-btn:hover > *{    
+    scale: 1.2 0.4;
+}
+
+.img-slider-btn:hover {
+    background-color: rgba(0, 0, 0, 0.2);
 }
