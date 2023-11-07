@@ -2,13 +2,12 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import CarCard from './CarCard';
-import carimage from './cars/car-image.webp';
 
 function Home() {
   return (
     <div>
       <Header />
-      <div className="container mt-5">
+      <div className="w-100 p-5 bg-dark text-white">
         <div className="text-center">
           <h1 className="display-4">Welcome to Car360</h1>
           <p className="lead">Your one-stop destination for the latest cars and deals.</p>
@@ -17,13 +16,13 @@ function Home() {
         <h2 className="mt-5">Featured Cars</h2>
         <div className="row">
           <div className="col-md-4">
-            <CarCard carId="1" name="Car name" price="price" src={carimage} transmission="Automatic" mileage="20" />
+            <CarCard carId="1" name="Car name" price="price" src="car-image.webp" transmission="Automatic" mileage="20" />
           </div>
           <div className="col-md-4">
-            <CarCard carId="1" name="Car name" price="price" src={carimage} transmission="Automatic" mileage="20" />
+            <CarCard carId="1" name="Car name" price="price" src="car-image.webp" transmission="Automatic" mileage="20" />
           </div>
           <div className="col-md-4">
-            <CarCard carId="1" name="Car name" price="price" src={carimage} transmission="Automatic" mileage="20" />
+            <CarCard carId="1" name="Car name" price="price" src="car-image.webp" transmission="Automatic" mileage="20" />
           </div>
         </div>
 

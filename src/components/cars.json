@@ -1,0 +1,35 @@
+[
+    {
+      "carId": "1",
+      "name": "Car name 1",
+      "price": "Price 1",
+      "src": "creta/b-main.jpg",
+      "transmission": "Automatic",
+      "mileage": "20"
+    },
+    {
+      "carId": "2",
+      "name": "Car name 2",
+      "price": "Price 2",
+      "src": "car-image.webp",
+      "transmission": "Manual",
+      "mileage": "18"
+    },
+    {
+      "carId": "3",
+      "name": "Car name 3",
+      "price": "Price 3",
+      "src": "car-image.webp",
+      "transmission": "Manual",
+      "mileage": "18"
+    },
+    {
+      "carId": "4",
+      "name": "Car name 4",
+      "price": "Price 4",
+      "src": "car-image.webp",
+      "transmission": "Manual",
+      "mileage": "18"
+    }
+  ]
+  

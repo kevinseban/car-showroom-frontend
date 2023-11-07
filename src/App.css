@@ -1,14 +1,17 @@
 .car-card {
-    border: 1px solid black;
+    border: 2px solid black;
     max-width: min-content;
     border-radius: 1rem;
     padding: 1rem;
-    background-color: rgba(0, 0, 0, 0.1);
-    transition: background-color 0.25s;
+    background-color: rgb(255, 255, 255);
+    transition: scale 0.25s;
+}
+.car-img{
+    border-radius: 1rem;
 }
 
 .car-card:hover {
-    background-color: whitesmoke;
+    scale: 1.02;
 }
 
 .squareBox {
