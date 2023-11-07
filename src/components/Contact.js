@@ -6,7 +6,7 @@ import { faEnvelope, faPhone, faAddressCard } from '@fortawesome/free-solid-svg-
 
 function Contact() {
     return (
-        <div>
+        <>
             <Header />
             <div className='bg-dark text-white pt-2 overflow-hidden'>
                 <div class="row">
@@ -42,7 +42,7 @@ function Contact() {
                 </div>
             </div>
             <Footer />
-        </div>
+        </>
     );
 }
 
