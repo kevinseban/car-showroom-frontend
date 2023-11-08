@@ -13,30 +13,16 @@ code {
 }
 
 .log-page{
-  /*background-image: url("./back4.png");*/
+  
   background-color: black;
-  background-size: cover;
-  padding-right: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  font-family: "Raleway", sans-serif;
+  
 }
 
-.reg-page{
-  /*background-image: url("./back4.png");*/
+/*.reg-page{
+  
   background-color: black;
-  background-size: cover;
-  padding-right: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  font-family: "Raleway", sans-serif;
-}
+  
+}*/
 
 .log{
   backdrop-filter: blur(10px);
@@ -47,7 +33,7 @@ code {
   border-radius: 10px;
 }
 
-.home-page{
+/*.home-page{
   background-color: black !important;
   background-image: none;
   background-size: initial;
@@ -58,7 +44,7 @@ code {
   width: initial;
   font-family: initial; 
   
-}
+}*/
 
 .auth-form-container, .login-form, .register-form {
   display: flex;
@@ -70,6 +56,7 @@ code {
   border: 1px solid yellow;
   border-radius: 10px;
   margin: 0.5rem;
+  max-width: 30%;
 }
 
 .link-btn {
