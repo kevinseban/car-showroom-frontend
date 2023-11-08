@@ -1,5 +1,5 @@
-import React from 'react';
 import { useState , useEffect } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
@@ -19,9 +19,13 @@ function App() {
   }
 
   return (
+    
     <Router>
+      
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path='/' element={<Login/>} />
+        <Route path='/signup' element={<Register/>}/>
+        <Route path="/home" element={<Home />} />
         <Route path="cars" element={<CarList />} />
         <Route path="car/:id" element={<CarDetail />} />
         <Route path="admin" element={<AdminPanel />} />
