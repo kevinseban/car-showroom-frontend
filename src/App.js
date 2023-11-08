@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useState , useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
@@ -7,6 +8,8 @@ import CarList from './components/CarList';
 import CarDetail from './components/CarDetail';
 import AdminPanel from './components/AdminPanel';
 import Contact from './components/Contact';
+import { Login } from './components/Login';
+import { Register } from './components/Register';
 
 function App() {
   const [currentForm, setCurrentForm] = useState('login');
