@@ -9,6 +9,12 @@ import AdminPanel from './components/AdminPanel';
 import Contact from './components/Contact';
 
 function App() {
+  const [currentForm, setCurrentForm] = useState('login');
+
+  const toggleForm = (formName) => {
+    setCurrentForm(formName);
+  }
+
   return (
     <Router>
       <Routes>
