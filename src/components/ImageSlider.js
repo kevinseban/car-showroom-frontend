@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 
 function ImageSlider(props) {
     const [imageIndex, setImageIndex] = useState(0);
+    const [isImageEnlarged, setIsImageEnlarged] = useState(false);
+    const [enlargedIndex, setEnlargedIndex] = useState(0);
 
     function showNextImage() {
         setImageIndex((index) => {
@@ -27,6 +29,11 @@ function ImageSlider(props) {
         }
     };
 
+    const openImageEnlargement = (index) => {
+        setEnlargedIndex(index);
+        setIsImageEnlarged(true);
+    };
+
     return (
         <div style={{ width: '100%', height: '100%', position: 'relative' }}>
             <div style={{ width: '100%', height: '100%', overflow: 'hidden', display: 'flex' }}>
@@ -38,8 +45,9 @@ function ImageSlider(props) {
                                 className='img-slider-img'
                                 key={index}
                                 src={image}
-                                alt={`Car ${index+1}`}
+                                alt={`Car ${index + 1}`}
                                 style={{ transform: `translateX(${-100 * imageIndex}%)` }}
+                                onClick={() => openImageEnlargement(index)}
                             />
                         );
                     }
@@ -52,6 +60,17 @@ function ImageSlider(props) {
             <button onClick={showNextImage} className='img-slider-btn' style={{ right: '0' }}>
                 <ArrowBigRight />
             </button>
+
+            {isImageEnlarged && (
+                <div className='image-enlargement'>
+                    <button className='close-button fw-bold' onClick={() => setIsImageEnlarged(false)}>X</button>
+                    <img
+                        src={requireImage(props.images[enlargedIndex])}
+                        alt={`Car ${enlargedIndex + 1}`}
+                        onClick={() => setIsImageEnlarged(false)}
+                    />
+                </div>
+            )}
         </div>
     );
 }

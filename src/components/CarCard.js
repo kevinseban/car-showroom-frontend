@@ -2,32 +2,39 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import steering from './images/steering-wheel.svg';
 import gas from './images/gas.svg';
+import { getCarById } from './carsData';
 
 function CarCard(props) {
+  const car = getCarById(props.carId);
+
+  if (!car) {
+    return <div>Loading...</div>;
+  }
+
   const carImageSrc = (() => {
     try {
-      return require(`./cars/${props.src}`);
+      return require(`./cars/${car.src}`);
     } catch (error) {
       console.error(error);
-      return ''; 
+      return '';
     }
   })();
 
   return (
     <div className='my-2 car-card px-4 text-black justify-content-center d-flex flex-column'>
-      <h4>{props.name}</h4>
-      <h5 className='lead'>From ₹ {props.price}</h5>
+      <h4>{car.name}</h4>
+      <h5 className='lead'>From ₹ {car.price}</h5>
       <img src={carImageSrc} className="card-img img-fluid my-2" alt="Car" />
       <div className='d-flex justify-content-center gap-5 mt-2'>
         <div className='text-center'>
           <img src={steering} className="m-1" alt="Steering Wheel" />
-          <p className='lead' style={{ fontSize: "small" }}>{props.transmission}</p>
+          <p className='lead' style={{ fontSize: "small" }}>{car.transmission}</p>
         </div>
         <div className='text-center'>
           <img src={gas} className="m-1" alt="Mileage" />
-          <p className='lead' style={{ fontSize: "small" }}>{props.mileage}Km/l</p>
+          <p className='lead' style={{ fontSize: "small" }}>{car.mileage}Km/l</p>
         </div>
-        <Link to={`/car/${props.carId}`} className="btn btn-outline-dark mt-2 px-4" style={{ height: "fit-content" }}>Explore</Link>
+        <Link to={`/car/${car.carId}`} className="btn btn-outline-dark mt-2 px-4" style={{ height: "fit-content" }}>Explore</Link>
       </div>
     </div>
   );

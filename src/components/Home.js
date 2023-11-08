@@ -15,16 +15,10 @@ function Home() {
           </div>
           <div className='container'>
             <h2 className="mt-5 text-center">Featured Cars</h2>
-            <div className="row">
-              <div className="col-lg-4 col-md-6 col-sm-12">
-                <CarCard carId="1" name="Car name" price="price" src="car-image.webp" transmission="Automatic" mileage="20" />
-              </div>
-              <div className="col-lg-4 col-md-6 col-sm-12">
-                <CarCard carId="1" name="Car name" price="price" src="car-image.webp" transmission="Automatic" mileage="20" />
-              </div>
-              <div className="col-lg-4 col-md-6 col-sm-12">
-                <CarCard carId="1" name="Car name" price="price" src="car-image.webp" transmission="Automatic" mileage="20" />
-              </div>
+            <div className="d-flex flex-wrap justify-content-center gap-2 pb-3">
+                <CarCard carId="1"/>
+                <CarCard carId="2"/>
+                <CarCard carId="3"/>
             </div>
           </div>
           <h2 className="mt-5 display-5 text-center">About Us</h2>
