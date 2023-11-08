@@ -1,4 +1,3 @@
-import { useState , useEffect } from 'react';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -12,18 +11,12 @@ import { Login } from './components/Login';
 import { Register } from './components/Register';
 
 function App() {
-  const [currentForm, setCurrentForm] = useState('login');
-
-  const toggleForm = (formName) => {
-    setCurrentForm(formName);
-  }
-
   return (    
     <Router>      
       <Routes>
-        <Route path='/' element={<Login/>} />
+        <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<Register/>}/>
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="cars" element={<CarList />} />
         <Route path="car/:id" element={<CarDetail />} />
         <Route path="admin" element={<AdminPanel />} />

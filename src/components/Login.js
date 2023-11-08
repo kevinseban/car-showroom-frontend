@@ -18,8 +18,8 @@ export const Login = (props) => {
             })
             .then(res=>{
                 if (res.data==="exist"){
-                    history("/home",{state:{id:email}})
-                    //history("/home")
+                    history("/",{state:{id:email}})
+                    console.log(res.data)
                 }
                 else if (res.data==="notexist"){
                     alert("User have not Signed up")
@@ -60,6 +60,3 @@ export const Login = (props) => {
         </div>
     )
 }
-/*
-<button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here.</button>
-*/

@@ -4,7 +4,6 @@ import Footer from './Footer';
 import CarCard from './CarCard';
 
 function Home() {
-  // const location = useLocation()
   return (
     <div className='parent'>
       <Header />

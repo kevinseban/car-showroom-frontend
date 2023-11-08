@@ -22,7 +22,7 @@ export const Register = (props) => {
                     alert("User already exists")
                 }
                 else if (res.data==="notexist"){
-                    history("/home",{state:{id:email}})
+                    history("/",{state:{id:email}})
                     //history("/home")
                 }
             })
@@ -55,7 +55,7 @@ export const Register = (props) => {
                     <button className="btn btn-secondary text-dark" type="submit" onClick={submit}>Sign up</button>
                 </form>
                 <br/>
-                <Link to="/">Already have an account? Login here.</Link>
+                <Link to="/login">Already have an account? Login here.</Link>
             </div>
         </center>
     </div>
