@@ -18,10 +18,8 @@ function App() {
     setCurrentForm(formName);
   }
 
-  return (
-    
-    <Router>
-      
+  return (    
+    <Router>      
       <Routes>
         <Route path='/' element={<Login/>} />
         <Route path='/signup' element={<Register/>}/>

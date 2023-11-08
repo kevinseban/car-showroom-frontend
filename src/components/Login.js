@@ -44,14 +44,14 @@ export const Login = (props) => {
             <Header/>
             <center>
                 <div className="auth-form-container log">
-                    <h1 className="text-warning">Login</h1>
+                    <h1 className="text-secondary">Login</h1>
                     <form className="login-form"  action="POST">
-                        <label htmlFor="email" className="text-light">Email</label>
-                        <input className="form-control" value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
-                        <label htmlFor="password" className="text-light">Password</label>
-                        <input className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="********" id="password" name="password" />
+                        <label htmlFor="email" className="text-light m-1">Email</label>
+                        <input className="form-control m-1" value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
+                        <label htmlFor="password" className="text-light m-1">Password</label>
+                        <input className="form-control m-1" value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="********" id="password" name="password" />
                         <br/>
-                        <button className="btn btn-warning" type="submit" onClick={submit}>Log In</button>
+                        <button className="btn btn-secondary" type="submit" onClick={submit}>Log In</button>
                     </form>
                     <br/>
                     <Link to="/signup">Don't have an account? Register here.</Link>

@@ -45,14 +45,14 @@ export const Register = (props) => {
             <Header/>
             <center>
                 <div className="auth-form-container log">
-                    <h1 className="text-warning">Sign Up</h1>
+                    <h1 className="text-secondary">Sign Up</h1>
                 <form className="register-form" action="POST">
-                    <label htmlFor="email" className="text-light">Email</label>
-                    <input className="form-control" value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
-                    <label htmlFor="password" className="text-light">Password</label>
-                    <input className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="********" id="password" name="password" />
+                    <label htmlFor="email" className="text-light m-1">Email</label>
+                    <input className="form-control m-1" value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
+                    <label htmlFor="password" className="text-light m-1">Password</label>
+                    <input className="form-control m-1" value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="********" id="password" name="password" />
                     <br/>
-                    <button className="btn btn-warning text-dark" type="submit" onClick={submit}>Sign up</button>
+                    <button className="btn btn-secondary text-dark" type="submit" onClick={submit}>Sign up</button>
                 </form>
                 <br/>
                 <Link to="/">Already have an account? Login here.</Link>
