@@ -32,7 +32,7 @@ function CarDetail() {
             <h3>Colors</h3>
             <div className='container-fluid'>
             <select
-              className='form-select w-50 p-1 mb-3 text-center bg-secondary text-white'
+              className='form-select w-50 p-1 mb-3 text-center'
               onChange={(e) => handleColorChange(e.target.value)}
               style={{display:'block',margin:'0 auto'}}
             >
