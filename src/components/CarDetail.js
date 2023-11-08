@@ -19,7 +19,7 @@ function CarDetail() {
     <div className='parent'>
       <Header />
       <div className='content bg-dark text-white p-4 overflow-hidden lead row'>
-        <div className='col ps-3'>
+        <div className='col-xl-8 col-lg-12 col-md-12 ps-3'>
           <h2 className='display-3 mb-2'>{car.name}</h2>
           <p className='lead'>Starting from ₹ {car.price}</p>
           <div className='img-slider-container'>
@@ -27,12 +27,14 @@ function CarDetail() {
           </div>
         </div>
 
-        <div className='w-100 col pt-5 mt-5 '>
+        <div className='col-xl-4 col-lg-12 col-md-12 pt-5 mt-5 text-center d-flex flex-column justify-content-center'>
           <div>
             <h3>Colors</h3>
+            <div className='container-fluid'>
             <select
-              className='form-select w-25 p-1 mb-2'
+              className='form-select w-50 p-1 mb-3 text-center bg-secondary text-white'
               onChange={(e) => handleColorChange(e.target.value)}
+              style={{display:'block',margin:'0 auto'}}
             >
               {car.colors.map((color, index) => (
                 <option key={color.colorId} value={index}>
@@ -40,6 +42,7 @@ function CarDetail() {
                 </option>
               ))}
             </select>
+          </div>
           </div>
           <div>
             <h3>Transmission</h3>
