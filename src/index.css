@@ -11,3 +11,72 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.log-page{
+  /*background-image: url("./back4.png");*/
+  background-color: black;
+  background-size: cover;
+  padding-right: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  font-family: "Raleway", sans-serif;
+}
+
+.reg-page{
+  /*background-image: url("./back4.png");*/
+  background-color: black;
+  background-size: cover;
+  padding-right: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  font-family: "Raleway", sans-serif;
+}
+
+.log{
+  backdrop-filter: blur(10px);
+  margin: 10px;
+  padding: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 10px;
+}
+
+.home-page{
+  background-color: black !important;
+  background-image: none;
+  background-size: initial;
+  display: initial;
+  justify-content: initial;
+  align-items: initial;
+  height: initial;
+  width: initial;
+  font-family: initial; 
+  
+}
+
+.auth-form-container, .login-form, .register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form-container {
+  padding: 2.5rem;
+  border: 1px solid yellow;
+  border-radius: 10px;
+  margin: 0.5rem;
+}
+
+.link-btn {
+  background: none;
+  color: white;
+  text-decoration: underline;
+  border: none;
+  padding: 20px;
+  cursor: pointer;
+}
