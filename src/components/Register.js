@@ -43,8 +43,8 @@ export const Register = (props) => {
     return (
         <div>
             <Header/>
-            <center>
-                <div className="auth-form-container log" style={{marginTop:'18rem'}}>
+            <center className="content pt-5">
+                <div className="auth-form-container log">
                     <h1 className="text-secondary mb-4">Sign Up</h1>
                 <form className="register-form" action="POST">
                     <label htmlFor="email" className="text-light m-1">Email</label>
