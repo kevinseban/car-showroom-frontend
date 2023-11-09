@@ -12,20 +12,25 @@ function AdminPanel() {
   // const features = document.getElementById('feat').value.split('\n'); -> method to convert textarea features into array of features.
 
   //Code to handle Form data
+  //Initializing the required states
   const[carName, setCarName] = useState("");
   const[carPrice, setCarPrice] = useState("");
   const[carColor, setCarColor] = useState("");
   const[carMileage, setCarMileage] = useState("");
-  // const[carTransmission, setCarTransmission] = useState("");
-  // const[carFeatures, setCarFeatures] = useState("");
+  const[carTransmission, setCarTransmission] = useState("");
+  const[carFeatures, setCarFeatures] = useState("");
+  //imageUrls on submit will contain an array of urls that correspond to the pictures of that car in that color.
+
+  //code to send data to mongoDB
   const collectData = async (e) => {
-    console.log(`${carName}`);
+    e.preventDefault();
   }
+
   // Code to handle image upload to firebase
   const [imageUpload, setImageUpload] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
-
   const imagesListRef = ref(storage, `images/${carName}/${carColor}`);
+
   const uploadFile = () => {
     if (imageUpload == null) return;
     const imageRef = ref(storage, `images/${carName}/${carColor}/${imageUpload.name + v4()}`);
@@ -97,11 +102,11 @@ function AdminPanel() {
             <div className='form-group mb-3 mt-3'>
               <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Transmission</label><br></br>
               <div className="form-check form-check-inline">
-                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Automatic" />
+                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Automatic" onChange={() => setCarTransmission("Automatic")} />
                 <label className="form-check-label" htmlFor="inlineRadio1">Automatic</label>
               </div>
               <div className="form-check form-check-inline">
-                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Manual" />
+                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Manual" onChange={() => setCarTransmission("Manual")} />
                 <label className="form-check-label" htmlFor="inlineRadio2">Manual</label>
               </div>
             </div>
@@ -109,7 +114,7 @@ function AdminPanel() {
             {/* Features */}
             <div className='form-group mb-3 mt-3'>
               <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}><small>Features (newline seperated)</small></label>
-              <textarea className='feat form-control' id='feat' cols="5" rows="5"/>
+              <textarea className='feat form-control' id='feat' cols="5" rows="5" onChange={() => setCarFeatures(document.getElementById('feat').value.split('\n'))}/>
             </div>
 
             {/* Images */}
