@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Header() {
+  const isAuthenticated = localStorage.getItem('token'); // Check if the user is authenticated
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-black d-flex">
       <div className="container-fluid px-4 py-1 m-0">
@@ -22,10 +24,15 @@ function Header() {
             </li>
           </ul>
           <ul className='ms-auto navbar-nav'>
-          <li className="nav-item ">
-              <Link to="/login" className="nav-link">Login</Link>
-            </li>
-            
+            {isAuthenticated ? (
+              <li className="nav-item">
+                <Link to="/profile" className="nav-link">View User Profile</Link>
+              </li>
+            ) : (
+              <li className="nav-item">
+                <Link to="/login" className="nav-link">Login</Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>

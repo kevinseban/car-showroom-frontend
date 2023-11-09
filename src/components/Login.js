@@ -1,62 +1,78 @@
-import React, { useState , useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 import Header from "./Header";
-import { useNavigate ,Link } from "react-router-dom";
+import Footer from "./Footer";
 
-export const Login = (props) => {
+export const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const history = useNavigate();
 
-    const history=useNavigate();
-
-    async function submit(e){
+    async function submit(e) {
         e.preventDefault();
 
-        try{
-            await axios.post("http://localhost:8000/",{
-                email,password
-            })
-            .then(res=>{
-                if (res.data==="exist"){
-                    history("/",{state:{id:email}})
-                    console.log(res.data)
-                }
-                else if (res.data==="notexist"){
-                    alert("User have not Signed up")
-                }
-            })
-            .catch(e=>{
-                alert("Wrong details")
-                console.log(e);
-            })
-        }
-        catch(e){
-            console.log(e);
+        try {
+            const response = await axios.post("http://localhost:8000/user/generateToken", {
+                email,
+                password,
+            });
+
+            const { token, user } = response.data;
+            if (token) {
+                // Store the token in local storage
+                localStorage.setItem("token", token);
+                console.log("Logged in with email:", email);
+                console.log("Password:", password);
+                console.log("Token:", token);
+                history("/", { state: { id: user.email } });
+            } else {
+                alert("Wrong details or user does not exist");
+            }
+        } catch (error) {
+            console.error("Error logging in: ", error);
+            alert("An error occurred while logging in.");
         }
     }
 
-    useEffect(() => {
-        document.body.classList.add("log-page");
-      });
 
     return (
         <div className="app parent">
-            <Header/>
-            <center className="content pt-5">
+            <Header />
+            <center className="content bg-black py-5">
                 <div className="auth-form-container log">
                     <h1 className="text-secondary mb-4">Login</h1>
-                    <form className="login-form"  action="POST">
+                    <form className="login-form" action="POST">
                         <label htmlFor="email" className="text-light m-1">Email</label>
-                        <input className="form-control m-1" value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
+                        <input
+                            className="form-control m-1"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            type="email"
+                            placeholder="youremail@gmail.com"
+                            id="email"
+                            name="email"
+                        />
                         <label htmlFor="password" className="text-light m-1">Password</label>
-                        <input className="form-control m-1" value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="********" id="password" name="password" />
-                        <br/>
-                        <button className="btn btn-secondary" type="submit" onClick={submit}>Log In</button>
+                        <input
+                            className="form-control m-1"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            type="password"
+                            placeholder="********"
+                            id="password"
+                            name="password"
+                        />
+                        <br />
+                        <button className="btn btn-secondary" type="submit" onClick={submit}>
+                            Log In
+                        </button>
                     </form>
-                    <br/>
+                    <br />
                     <Link to="/signup">Don't have an account? Register here.</Link>
                 </div>
             </center>
+            <Footer />
         </div>
-    )
-}
+    );
+};
