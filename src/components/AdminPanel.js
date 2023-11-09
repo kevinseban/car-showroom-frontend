@@ -18,7 +18,7 @@ function AdminPanel() {
   const[carColor, setCarColor] = useState("");
   const[carMileage, setCarMileage] = useState("");
   const[carTransmission, setCarTransmission] = useState("");
-  const[carFeatures, setCarFeatures] = useState("");
+  const[carFeatures, setCarFeatures] = useState(""); //Array of Strings which contain the Features.
   //imageUrls on submit will contain an array of urls that correspond to the pictures of that car in that color.
 
   //code to send data to mongoDB
