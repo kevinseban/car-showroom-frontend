@@ -74,8 +74,19 @@ function AdminPanel() {
     .then(mess => setMess(mess.data))
     .catch(err => console.log(err))
   },[]);
-
-
+  
+  // Code to delete entries.
+  const handleDelete = (id) => {
+    if(window.confirm(`Are you sure you want to delete this complaint`)){
+      axios.post('http://localhost:8000/deleteMessage',null , {
+        params : {messid : id}
+      })
+      .then(res => {
+        alert("record has been deleted");
+      })
+      .catch(err => console.log(err));
+    }
+  }
 
   return (
     <div className="parent">
@@ -162,6 +173,8 @@ function AdminPanel() {
         </div>
 
         <br /><br /><br />
+
+        {/* Table for complaints */}
         <h2 className='text-center'>Complaints</h2><br />
         <div className='w-100 d-flex justify-content-center align-items-center table-responsive'>
           <div className="w-50">
@@ -180,6 +193,9 @@ function AdminPanel() {
                   <th className='bg-secondary text-white'>
                     Message
                   </th>
+                  <th className='bg-secondary text-white text-center'>
+                    Action
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -191,6 +207,7 @@ function AdminPanel() {
                       <td>{mess.messEmail}</td>
                       <td>{mess.messPhone}</td>
                       <td>{mess.messMessage}</td>
+                      <td><button type="button" className='btn btn-danger w-100' onClick={() => handleDelete(mess._id)}>Delete</button></td>
                     </tr>
                     )
                   })
