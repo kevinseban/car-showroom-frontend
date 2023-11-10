@@ -67,3 +67,11 @@ code {
   padding: 20px;
   cursor: pointer;
 }
+
+.image{
+  text-align: center;
+  background-color: black;
+  height: 20%;
+  width: 20%;
+  border-radius: 50%;
+}
