@@ -15,14 +15,14 @@ function App() {
   return (    
     <Router>      
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Register />} />
-        <Route path="/" element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Register />} />
+        <Route path="" element={<Home />} />
         <Route path="cars" element={<CarList />} />
         <Route path="car/:id" element={<CarDetail />} />
         <Route path="admin" element={<AdminPanel />} />
         <Route path="contact" element={<Contact />} />
-        <Route path="/profile" element={<UserProfile />} /> 
+        <Route path="profile" element={<UserProfile />} /> 
       </Routes>
     </Router>
   );

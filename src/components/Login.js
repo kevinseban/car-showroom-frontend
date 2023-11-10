@@ -5,7 +5,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 export const Login = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const history = useNavigate();
 
@@ -14,7 +14,7 @@ export const Login = () => {
 
         try {
             const response = await axios.post("http://localhost:8000/user/generateToken", {
-                email,
+                username,
                 password,
             });
 
@@ -22,10 +22,10 @@ export const Login = () => {
             if (token) {
                 // Store the token in local storage
                 localStorage.setItem("token", token);
-                console.log("Logged in with email:", email);
+                console.log("Logged in with email:", username);
                 console.log("Password:", password);
                 console.log("Token:", token);
-                history("/", { state: { id: user.email } });
+                history("/", { state: { id: user.username } });
             } else {
                 alert("Wrong details or user does not exist");
             }
@@ -35,7 +35,6 @@ export const Login = () => {
         }
     }
 
-
     return (
         <div className="app parent">
             <Header />
@@ -43,15 +42,15 @@ export const Login = () => {
                 <div className="auth-form-container log">
                     <h1 className="text-secondary mb-4">Login</h1>
                     <form className="login-form" action="POST">
-                        <label htmlFor="email" className="text-light m-1">Email</label>
+                        <label htmlFor="username" className="text-light m-1">Username</label>
                         <input
                             className="form-control m-1"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            type="email"
-                            placeholder="youremail@gmail.com"
-                            id="email"
-                            name="email"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            type="text"
+                            placeholder="username"
+                            id="username"
+                            name="username"
                         />
                         <label htmlFor="password" className="text-light m-1">Password</label>
                         <input

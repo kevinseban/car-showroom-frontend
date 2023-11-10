@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import { useNavigate, Link } from "react-router-dom";
 
 export const Register = () => {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const history = useNavigate();
 
@@ -14,14 +14,17 @@ export const Register = () => {
 
         try {
             const response = await axios.post("http://localhost:8000/user/generateToken", {
-                email, password
+                username, password
             });
 
             const { token, user } = response.data;
 
             if (token) {
                 localStorage.setItem("token", token);
-                history("/", { state: { id: user.email } });
+                console.log("Logged in with email:", username);
+                console.log("Password:", password);
+                console.log("Token:", token);
+                history("/", { state: { id: user.username } });
             } else {
                 alert("User already exists or wrong details");
             }
@@ -42,8 +45,8 @@ export const Register = () => {
                 <div className="auth-form-container  log">
                     <h1 className="text-secondary mb-4">Sign Up</h1>
                     <form className="register-form" action="POST">
-                        <label htmlFor="email" className="text-light m-1">Email</label>
-                        <input className="form-control m-1" value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" name="email" />
+                        <label htmlFor="username" className="text-light m-1">Username</label>
+                        <input className="form-control m-1" value={username} onChange={(e) => setUsername(e.target.value)} type="text" placeholder="username" id="username" name="username" />
                         <label htmlFor="password" className="text-light m-1">Password</label>
                         <input className="form-control m-1" value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="********" id="password" name="password" />
                         <br />
