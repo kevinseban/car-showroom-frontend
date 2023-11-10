@@ -7,8 +7,8 @@ import CarList from './components/CarList';
 import CarDetail from './components/CarDetail';
 import AdminPanel from './components/AdminPanel';
 import Contact from './components/Contact';
-import { Login } from './components/Login';
-import { Register } from './components/Register';
+import {Login}  from './components/Login';
+import Register from './components/Register';
 import UserProfile from './components/UserProfile'; 
 
 function App() {

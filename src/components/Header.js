@@ -1,8 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 function Header() {
-  const isAuthenticated = localStorage.getItem('token'); // Check if the user is authenticated
+  const navigate = useNavigate();
+  const isAuthenticated = localStorage.getItem('token');
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    console.log("Logged out")
+    navigate('/login');
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-black d-flex">
@@ -25,9 +34,14 @@ function Header() {
           </ul>
           <ul className='ms-auto navbar-nav'>
             {isAuthenticated ? (
-              <li className="nav-item">
-                <Link to="/profile" className="nav-link">View User Profile</Link>
-              </li>
+              <>
+                <li className="nav-item">
+                  <Link to="/profile" className="nav-link"><FontAwesomeIcon icon={faUser}/></Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/login" className="nav-link" onClick={handleLogout}>Logout</Link>
+                </li>
+              </>
             ) : (
               <li className="nav-item">
                 <Link to="/login" className="nav-link">Login</Link>
