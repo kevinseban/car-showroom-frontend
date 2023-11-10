@@ -47,6 +47,9 @@ function Header() {
                 <Link to="/login" className="nav-link">Login</Link>
               </li>
             )}
+            <li className="nav-item ">
+              <Link to="/profile" className="nav-link">Profile</Link>
+            </li>
           </ul>
         </div>
       </div>
