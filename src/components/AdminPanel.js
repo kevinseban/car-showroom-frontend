@@ -35,10 +35,11 @@ function AdminPanel() {
           carFeatures,
           imageUrls
       });
-      console.log("Message sent successfully");
+      alert("Message sent successfully");
   } catch (error) {
       console.error("Error sending: ", error);
   }
+  window.location.reload();
   }
 
   // Code to handle image upload to firebase
@@ -83,6 +84,7 @@ function AdminPanel() {
       })
       .then(res => {
         alert("record has been deleted");
+        window.location.reload();
       })
       .catch(err => console.log(err));
     }
