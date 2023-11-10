@@ -4,6 +4,8 @@ import Header from './Header';
 import Footer from './Footer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone, faAddressCard } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+
 
 function Contact() {
     const[messName, setMessName] = useState("");
@@ -13,8 +15,18 @@ function Contact() {
 
     const collectData = async (e) => {
         e.preventDefault();
-      }
-
+        try {
+            const response = await axios.post("http://localhost:8000/message", {
+                messName,
+                messEmail,
+                messPhone,
+                messMessage
+            });
+            console.log("Message sent successfully");
+        } catch (error) {
+            console.error("Error sending: ", error);
+        }
+    }
     return (
         <div className='parent'>
             <Header />

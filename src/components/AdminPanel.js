@@ -6,6 +6,7 @@ import { v4 } from "uuid";
 import Header from "./Header";
 import Footer from "./Footer";
 import { async } from '@firebase/util';
+import axios from "axios";
 
 
 function AdminPanel() {
@@ -24,6 +25,20 @@ function AdminPanel() {
   //code to send data to mongoDB
   const collectData = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8000/addCar", {
+          carName,
+          carPrice,
+          carColor,
+          carMileage,
+          carTransmission,
+          carFeatures,
+          imageUrls
+      });
+      console.log("Message sent successfully");
+  } catch (error) {
+      console.error("Error sending: ", error);
+  }
   }
 
   // Code to handle image upload to firebase
@@ -124,7 +139,7 @@ function AdminPanel() {
                   setImageUpload(event.target.files[0]);
                 }}
               />
-              <button onClick={uploadFile}>Upload Image</button><br />
+              <button type="button" onClick={uploadFile}>Upload Image</button><br />
               {imageUrls.map((url) => {
                   return <img src={url} />;
               })}
