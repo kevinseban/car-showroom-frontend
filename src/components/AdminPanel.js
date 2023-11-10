@@ -65,7 +65,16 @@ function AdminPanel() {
       });
     });
   }, []);
-  //ending of code to send image to firebase
+  // ending of code to send image to firebase
+
+  // Code to display messages from the Contact Us DB.
+  const [mess, setMess] = useState([])
+  useEffect(() => {
+    axios.get('http://localhost:8000/getMessage')
+    .then(mess => setMess(mess.data))
+    .catch(err => console.log(err))
+  },[]);
+
 
 
   return (
@@ -150,6 +159,45 @@ function AdminPanel() {
               <button type='submit' className='btn btn-success'>Submit</button>
             </div>
           </form>
+        </div>
+
+        <br /><br /><br />
+        <h2 className='text-center'>Complaints</h2><br />
+        <div className='w-100 d-flex justify-content-center align-items-center table-responsive'>
+          <div className="w-50">
+            <table className='table table-striped table-hover'>
+              <thead>
+                <tr>
+                  <th className='bg-secondary text-white'>
+                    Name
+                  </th>
+                  <th className='bg-secondary text-white'>
+                    Email
+                  </th>
+                  <th className='bg-secondary text-white'>
+                    Phone No.
+                  </th>
+                  <th className='bg-secondary text-white'>
+                    Message
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  mess.map(mess => {
+                    return(
+                    <tr>
+                      <td>{mess.messName}</td>
+                      <td>{mess.messEmail}</td>
+                      <td>{mess.messPhone}</td>
+                      <td>{mess.messMessage}</td>
+                    </tr>
+                    )
+                  })
+                }
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     <Footer />

@@ -15,6 +15,7 @@ function Contact() {
 
     const collectData = async (e) => {
         e.preventDefault();
+        alert("Message has been sent!");
         try {
             const response = await axios.post("http://localhost:8000/message", {
                 messName,
@@ -26,6 +27,10 @@ function Contact() {
         } catch (error) {
             console.error("Error sending: ", error);
         }
+        setMessName('');
+        setMessEmail('');
+        setMessPhone('');
+        setMessMessage('');
     }
     return (
         <div className='parent'>
