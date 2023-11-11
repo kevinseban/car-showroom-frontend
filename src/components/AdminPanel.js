@@ -90,6 +90,19 @@ function AdminPanel() {
     }
   }
 
+  //Code to display all cars
+  const [cars, setCars] = useState([]);
+  useEffect(() => {
+    // Fetch car details from the server
+    axios.get('http://localhost:8000/cars/allCars')
+      .then(response => {
+        setCars(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching car details: ', error);
+      });
+  }, []);
+
   return (
     <div className="parent">
       <Header />
@@ -174,7 +187,9 @@ function AdminPanel() {
           </form>
         </div>
 
-        <br /><br /><br />
+        <br /><br />
+        <hr />
+        <br />
 
         {/* Table for complaints */}
         <h2 className='text-center'>Complaints</h2><br />
@@ -214,6 +229,56 @@ function AdminPanel() {
                     )
                   })
                 }
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <br /><br />
+        <hr />
+        <br />
+
+        {/* Table to list all Cars */}
+        <h2 className='text-center'>Car Details</h2>
+        <div className="w-100 d-flex justify-content-center align-items-center table-responsive">
+          <div className="w-50">
+            <table className="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th className='bg-secondary text-white'>Name</th>
+                  <th className='bg-secondary text-white'>Price</th>
+                  <th className='bg-secondary text-white'>Transmission</th>
+                  <th className='bg-secondary text-white'>Mileage</th>
+                  <th className='bg-secondary text-white'>Features</th>
+                  <th className='bg-secondary text-white'>Colors</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cars.map(car => (
+                  <tr key={car._id}>
+                    <td>{car.name}</td>
+                    <td>{car.price}</td>
+                    <td>{car.transmission}</td>
+                    <td>{car.mileage}</td>
+                    <td>{car.features.join(', ')}</td>
+                    <td>
+                      <ul>
+                        {car.colors.map(color => (
+                          <li key={color._id}>
+                            <strong>{color.name}</strong>
+                            <ul>
+                              {color.images.map((image, index) => (
+                                <li key={index}>
+                                  <img src={image} alt={`Color ${color.name} - Image ${index}`} />
+                                </li>
+                              ))}
+                            </ul>
+                          </li>
+                        ))}
+                      </ul>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
