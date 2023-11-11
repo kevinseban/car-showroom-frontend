@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import { ref,uploadBytes,getDownloadURL,listAll,list,} from "firebase/storage";
+import { ref,uploadBytes,getDownloadURL,listAll,deleteObject,} from "firebase/storage";
 import { storage } from "./firebase";
 import { v4 } from "uuid";
 import Header from "./Header";
@@ -102,6 +102,42 @@ function AdminPanel() {
         console.error('Error fetching car details: ', error);
       });
   }, []);
+
+  //Code to allow the deletion of cars
+  const handleDeleteCar = async (id) => {
+    try {
+      // Fetch detailed car information
+      const response = await axios.get(`http://localhost:8000/getCars/${id}`);
+      const carData = response.data;
+  
+      // Confirm deletion
+      if (window.confirm(`Are you sure you want to delete this car?`)) {
+        // Delete car from the server
+        await axios.post(`http://localhost:8000/deleteCar`, null, {
+          params: { carid: id },
+        });
+  
+        // Delete images from Firebase Storage
+        await Promise.all(
+          carData.colors.flatMap((color) =>
+            color.images.map(async (imageUrl) => {
+              const imageRef = ref(storage, imageUrl);
+              try {
+                await deleteObject(imageRef);
+              } catch (error) {
+                console.error('Error deleting image from Firebase Storage:', error);
+              }
+            })
+          )
+        );
+  
+        alert('Car has been deleted');
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log('Error fetching car details:', error);
+    }
+  };
 
   return (
     <div className="parent">
@@ -251,6 +287,7 @@ function AdminPanel() {
                   <th className='bg-secondary text-white'>Mileage</th>
                   <th className='bg-secondary text-white'>Features</th>
                   <th className='bg-secondary text-white'>Colors</th>
+                  <th className='bg-secondary text-white'>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -277,6 +314,7 @@ function AdminPanel() {
                         ))}
                       </ul>
                     </td>
+                    <td><button type="button" className='btn btn-danger w-100' onClick={() => handleDeleteCar(car._id)}>Delete</button></td>
                   </tr>
                 ))}
               </tbody>
