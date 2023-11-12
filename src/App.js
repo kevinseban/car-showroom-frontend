@@ -10,7 +10,6 @@ import Contact from './components/Contact';
 import {Login}  from './components/Login';
 import Register from './components/Register';
 import UserProfile from './components/UserProfile'; 
-import Profile from './components/Profile';
 
 function App() {
   return (    
@@ -23,7 +22,7 @@ function App() {
         <Route path="car/:id" element={<CarDetail />} />
         <Route path="admin" element={<AdminPanel />} />
         <Route path="contact" element={<Contact />} />
-        <Route path="profile" element={<Profile />} />
+        <Route path="profile" element={<UserProfile />} />
       </Routes>
     </Router>
   );
