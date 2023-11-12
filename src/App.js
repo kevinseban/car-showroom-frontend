@@ -1,19 +1,26 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Home from './components/Home';
 import CarList from './components/CarList';
 import CarDetail from './components/CarDetail';
 import AdminPanel from './components/AdminPanel';
 import Contact from './components/Contact';
-import {Login}  from './components/Login';
+import { Login } from './components/Login';
 import Register from './components/Register';
-import UserProfile from './components/UserProfile'; 
+import UserProfile from './components/UserProfile';
 
 function App() {
-  return (    
-    <Router>      
+  
+  const isUserLoggedIn = localStorage.getItem('token') !== null;
+
+  const PrivateRoute = ({ element, ...props }) => {
+    return isUserLoggedIn ? element : <Navigate to="/login" />;
+  };
+
+  return (
+    <Router>
       <Routes>
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Register />} />
@@ -22,7 +29,10 @@ function App() {
         <Route path="car/:id" element={<CarDetail />} />
         <Route path="admin" element={<AdminPanel />} />
         <Route path="contact" element={<Contact />} />
-        <Route path="profile" element={<UserProfile />} />
+        <Route
+          path="profile"
+          element={<PrivateRoute element={<UserProfile />} />}
+        />
       </Routes>
     </Router>
   );
