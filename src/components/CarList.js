@@ -11,7 +11,7 @@ function CarList() {
     // Fetch car data for all the cars in the server
     const fetchCarsData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/cars/allCars');
+        const response = await axios.get('http://localhost:8000/cars/all');
         setCars(response.data);
       } catch (error) {
         console.error('Error fetching car list:', error);

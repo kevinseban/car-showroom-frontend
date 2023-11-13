@@ -11,7 +11,7 @@ function CarCard(props) {
     // Fetch car data from the server based on the provided car ID
     const fetchCarData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/getCars/${props.carId}`);
+        const response = await axios.get(`http://localhost:8000/cars/${props.carId}`);
         setCar(response.data);
       } catch (error) {
         console.error('Error fetching car details:', error);
@@ -22,12 +22,14 @@ function CarCard(props) {
   }, [props.carId]);
 
   if (!car) {
-    return <div>Loading...</div>;
+    return <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>;
   }
 
   const carImageSrc = (() => {
     try {
-        return car.mainSrc;
+      return car.mainSrc;
     } catch (error) {
       console.error(error);
     }

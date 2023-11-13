@@ -28,7 +28,7 @@ function AdminPanel() {
     e.preventDefault();
   
     try {
-      const response = await axios.post("http://localhost:8000/addCar", {
+      const response = await axios.post("http://localhost:8000/car/add", {
         carName,
         carPrice,
         carColor,
@@ -123,7 +123,7 @@ function AdminPanel() {
   const [cars, setCars] = useState([]);
   useEffect(() => {
     // Fetch car details from the server
-    axios.get('http://localhost:8000/cars/allCars')
+    axios.get('http://localhost:8000/cars/all')
       .then(response => {
         setCars(response.data);
       })
@@ -136,13 +136,13 @@ function AdminPanel() {
   const handleDeleteCar = async (id) => {
     try {
       // Fetch detailed car information
-      const response = await axios.get(`http://localhost:8000/getCars/${id}`);
+      const response = await axios.get(`http://localhost:8000/cars/${id}`);
       const carData = response.data;
   
       // Confirm deletion
       if (window.confirm(`Are you sure you want to delete this car?`)) {
         // Delete car from the server
-        await axios.post(`http://localhost:8000/deleteCar`, null, {
+        await axios.post(`http://localhost:8000/car/delete`, null, {
           params: { carid: id },
         });
   
