@@ -1,19 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
-import { getCarById } from './carsData';
 import ImageSlider from './ImageSlider';
+import axios from 'axios';
 
 function CarDetail() {
   const { id } = useParams();
-  const car = getCarById(id);
-
+  const [car, setCar] = useState(null);
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
+
+  useEffect(() => {
+    // Fetch car data from the server based on the provided car ID
+    const fetchCarData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/getCars/${id}`);
+        setCar(response.data); // Assuming the server returns the car data as JSON
+      } catch (error) {
+        console.error('Error fetching car details:', error);
+      }
+    };
+
+    fetchCarData();
+  }, [id]);
 
   const handleColorChange = (colorIndex) => {
     setSelectedColorIndex(colorIndex);
   };
+
+  if (!car) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className='parent'>
@@ -23,6 +40,7 @@ function CarDetail() {
           <h2 className='display-3 mb-2'>{car.name}</h2>
           <p className='lead'>Starting from ₹ {car.price}</p>
           <div className='img-slider-container'>
+            {/* Pass the selected color's images to ImageSlider */}
             <ImageSlider images={car.colors[selectedColorIndex].images} />
           </div>
         </div>
@@ -31,18 +49,18 @@ function CarDetail() {
           <div>
             <h3>Colors</h3>
             <div className='container-fluid'>
-            <select
-              className='form-select w-50 p-1 mb-3 text-center'
-              onChange={(e) => handleColorChange(e.target.value)}
-              style={{display:'block',margin:'0 auto'}}
-            >
-              {car.colors.map((color, index) => (
-                <option key={color.colorId} value={index}>
-                  {color.name}
-                </option>
-              ))}
-            </select>
-          </div>
+              <select
+                className='form-select w-50 p-1 mb-3 text-center'
+                onChange={(e) => handleColorChange(e.target.value)}
+                style={{ display: 'block', margin: '0 auto' }}
+              >
+                {car.colors.map((color, index) => (
+                  <option key={color.colorId} value={index}>
+                    {color.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
           <div>
             <h3>Transmission</h3>
@@ -56,7 +74,7 @@ function CarDetail() {
             <h3>Features</h3>
             <ul className='list-group'>
               {car.features.map((feature, index) => (
-                <li key={index} style={{ listStyle: "none" }}>
+                <li key={index} style={{ listStyle: 'none' }}>
                   {feature}
                 </li>
               ))}

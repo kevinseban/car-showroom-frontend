@@ -1,3 +1,4 @@
+
 import { ArrowBigLeft, ArrowBigRight } from 'lucide-react';
 import React, { useState } from 'react';
 
@@ -20,15 +21,6 @@ function ImageSlider(props) {
         });
     }
 
-    const requireImage = (path) => {
-        try {
-            return require(`./cars/${path}`);
-        } catch (error) {
-            console.error(error);
-            return '';
-        }
-    };
-
     const openImageEnlargement = (index) => {
         setEnlargedIndex(index);
         setIsImageEnlarged(true);
@@ -37,22 +29,16 @@ function ImageSlider(props) {
     return (
         <div style={{ width: '100%', height: '100%', position: 'relative' }}>
             <div style={{ width: '100%', height: '100%', overflow: 'hidden', display: 'flex' }}>
-                {props.images.map((imagePath, index) => {
-                    const image = requireImage(imagePath);
-                    if (image) {
-                        return (
-                            <img
-                                className='img-slider-img'
-                                key={index}
-                                src={image}
-                                alt={`Car ${index + 1}`}
-                                style={{ transform: `translateX(${-100 * imageIndex}%)` }}
-                                onClick={() => openImageEnlargement(index)}
-                            />
-                        );
-                    }
-                    return null;
-                })}
+                {props.images.map((imageURL, index) => (
+                    <img
+                        className='img-slider-img'
+                        key={index}
+                        src={imageURL}
+                        alt={`Car ${index + 1}`}
+                        style={{ transform: `translateX(${-100 * imageIndex}%)` }}
+                        onClick={() => openImageEnlargement(index)}
+                    />
+                ))}
             </div>
             <button onClick={showPreviousImage} className='img-slider-btn' style={{ left: '0' }}>
                 <ArrowBigLeft />
@@ -65,7 +51,7 @@ function ImageSlider(props) {
                 <div className='image-enlargement'>
                     <button className='close-button fw-bold' onClick={() => setIsImageEnlarged(false)}>X</button>
                     <img
-                        src={requireImage(props.images[enlargedIndex])}
+                        src={props.images[enlargedIndex]}
                         alt={`Car ${enlargedIndex + 1}`}
                         onClick={() => setIsImageEnlarged(false)}
                     />

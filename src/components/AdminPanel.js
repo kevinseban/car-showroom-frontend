@@ -25,36 +25,77 @@ function AdminPanel() {
   //code to send data to mongoDB
   const collectData = async (e) => {
     e.preventDefault();
+  
     try {
-      const response = await axios.post("http://localhost:8000/addCar", {
-          carName,
-          carPrice,
-          carColor,
-          carMileage,
-          carTransmission,
-          carFeatures,
-          imageUrls
+      // Wait for the main image URL to be set
+      await new Promise((resolve) => {
+        const checkImageUrl = () => {
+          if (mainImageUrl !== "") {
+            resolve();
+          } else {
+            setTimeout(checkImageUrl, 100); // Check again after 100 milliseconds
+          }
+        };
+  
+        checkImageUrl();
       });
+
+  
+      const response = await axios.post("http://localhost:8000/addCar", {
+        carName,
+        carPrice,
+        carColor,
+        carMileage,
+        carTransmission,
+        carFeatures,
+        imageUrls,
+        mainImageUrl
+      });
+  
       alert("Message sent successfully");
-  } catch (error) {
+    } catch (error) {
       console.error("Error sending: ", error);
-  }
-  window.location.reload();
-  }
+    }
+  
+    window.location.reload();
+  };
 
   // Code to handle image upload to firebase
   const [imageUpload, setImageUpload] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
+  const [mainImageUrl, setMainImageUrls] = useState("");
   const imagesListRef = ref(storage, `images/${carName}/${carColor}`);
 
-  const uploadFile = () => {
-    if (imageUpload == null) return;
-    const imageRef = ref(storage, `images/${carName}/${carColor}/${imageUpload.name + v4()}`);
-    uploadBytes(imageRef, imageUpload).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImageUrls((prev) => [...prev, url]);
-      });
-    });
+  const uploadFile = async (s) => {
+    try {
+      if (window.confirm("Are you sure you want to upload this photo")) {
+        if (s === "main") {
+          if (imageUpload == null || carName === "") {
+            alert("Please Enter car name and select a picture to upload.");
+            return;
+          }
+  
+          const mainImageRef = ref(storage, `images/${carName}/main/${imageUpload.name + v4()}`);
+          const snapshot = await uploadBytes(mainImageRef, imageUpload);
+          const url = await getDownloadURL(snapshot.ref);
+          setMainImageUrls(url);
+        } else {
+          if (imageUpload == null || carName === "" || carColor === "") {
+            alert("Please Enter car name, car color, and select a picture to upload.");
+            return;
+          }
+  
+          const imageRef = ref(storage, `images/${carName}/${carColor}/${imageUpload.name + v4()}`);
+          const snapshot = await uploadBytes(imageRef, imageUpload);
+          const url = await getDownloadURL(snapshot.ref);
+  
+          setImageUrls((prev) => [...prev, url]);
+        }
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      // Handle the error as needed
+    }
   };
 
   useEffect(() => {
@@ -130,7 +171,14 @@ function AdminPanel() {
             })
           )
         );
-  
+        
+        const mRef = ref(storage, carData.mainSrc);
+        try{
+          await deleteObject(mRef);
+        }
+        catch (error){
+          console.error("Error deleting main image",error);
+        }
         alert('Car has been deleted');
         window.location.reload();
       }
@@ -139,6 +187,8 @@ function AdminPanel() {
     }
   };
 
+  //Code to allow for the editing of cars
+  
   return (
     <div className="parent">
       <Header />
@@ -169,7 +219,7 @@ function AdminPanel() {
             {/* Car Price */}
             <div className='form-group mb-3 mt-3'>
               <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Price</label>
-              <input type='number' className='form-control'
+              <input type='text' className='form-control'
                 value={carPrice}
                 onChange={(event) => setCarPrice(event.target.value)}
               />
@@ -178,7 +228,7 @@ function AdminPanel() {
             {/* Car Mileage */}
             <div className='form-group mb-3 mt-3'>
               <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Mileage</label>
-              <input type='number' className='form-control'
+              <input type='text' className='form-control'
               value={carMileage}
               onChange={(event) => setCarMileage(event.target.value)}
               />
@@ -203,6 +253,17 @@ function AdminPanel() {
               <textarea className='feat form-control' id='feat' cols="5" rows="5" onChange={() => setCarFeatures(document.getElementById('feat').value.split('\n'))}/>
             </div>
 
+            {/* Main Image */}
+            <div className='form-group mb-3 mt-3'>
+              <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Main Image</label><br></br>
+              <input type="file" onChange={(event) => {
+                  setImageUpload(event.target.files[0]);
+                }}
+              />
+              <button type="button" onClick={() => uploadFile("main")}>Upload Main Image</button><br />
+              <img src={mainImageUrl} />
+            </div>
+
             {/* Images */}
             <div className='form-group mb-3 mt-3'>
               <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Pictures</label><br></br>
@@ -210,7 +271,7 @@ function AdminPanel() {
                   setImageUpload(event.target.files[0]);
                 }}
               />
-              <button type="button" onClick={uploadFile}>Upload Image</button><br />
+              <button type="button" onClick={() => uploadFile("notmain")}>Upload Image</button><br />
               {imageUrls.map((url) => {
                   return <img src={url} />;
               })}
@@ -286,6 +347,7 @@ function AdminPanel() {
                   <th className='bg-secondary text-white'>Transmission</th>
                   <th className='bg-secondary text-white'>Mileage</th>
                   <th className='bg-secondary text-white'>Features</th>
+                  <th className='bg-secondary text-white'>Main Image</th>
                   <th className='bg-secondary text-white'>Colors</th>
                   <th className='bg-secondary text-white'>Action</th>
                 </tr>
@@ -298,6 +360,7 @@ function AdminPanel() {
                     <td>{car.transmission}</td>
                     <td>{car.mileage}</td>
                     <td>{car.features.join(', ')}</td>
+                    <td><img src={car.mainSrc} /></td>
                     <td>
                       <ul>
                         {car.colors.map(color => (
