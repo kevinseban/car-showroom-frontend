@@ -20,6 +20,7 @@ function AdminPanel() {
   const[carMileage, setCarMileage] = useState("");
   const[carTransmission, setCarTransmission] = useState("");
   const[carFeatures, setCarFeatures] = useState(""); //Array of Strings which contain the Features.
+  const[isFeatured , setCarFeatured] = useState("");
   //imageUrls on submit will contain an array of urls that correspond to the pictures of that car in that color.
 
   //code to send data to mongoDB
@@ -27,20 +28,6 @@ function AdminPanel() {
     e.preventDefault();
   
     try {
-      // Wait for the main image URL to be set
-      await new Promise((resolve) => {
-        const checkImageUrl = () => {
-          if (mainImageUrl !== "") {
-            resolve();
-          } else {
-            setTimeout(checkImageUrl, 100); // Check again after 100 milliseconds
-          }
-        };
-  
-        checkImageUrl();
-      });
-
-  
       const response = await axios.post("http://localhost:8000/addCar", {
         carName,
         carPrice,
@@ -49,7 +36,8 @@ function AdminPanel() {
         carTransmission,
         carFeatures,
         imageUrls,
-        mainImageUrl
+        mainImageUrl,
+        isFeatured
       });
   
       alert("Message sent successfully");
@@ -238,11 +226,11 @@ function AdminPanel() {
             <div className='form-group mb-3 mt-3'>
               <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Transmission</label><br></br>
               <div className="form-check form-check-inline">
-                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="Automatic" onChange={() => setCarTransmission("Automatic")} />
+                <input className="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio1" value="Automatic" onChange={() => setCarTransmission("Automatic")} />
                 <label className="form-check-label" htmlFor="inlineRadio1">Automatic</label>
               </div>
               <div className="form-check form-check-inline">
-                <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Manual" onChange={() => setCarTransmission("Manual")} />
+                <input className="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio2" value="Manual" onChange={() => setCarTransmission("Manual")} />
                 <label className="form-check-label" htmlFor="inlineRadio2">Manual</label>
               </div>
             </div>

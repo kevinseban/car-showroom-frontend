@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import CarCard from './CarCard';
+import axios from 'axios';
 
 function Home() {
+  const [featuredCars, setFeaturedCars] = useState([]);
+
+  useEffect(() => {
+    // Fetch featured cars from the server
+    const fetchFeaturedCars = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/featured');
+        setFeaturedCars(response.data);
+      } catch (error) {
+        console.error('Error fetching featured cars:', error);
+      }
+    };
+
+    fetchFeaturedCars();
+  }, []);
+
   return (
     <div className='parent'>
       <Header />
@@ -16,9 +33,10 @@ function Home() {
           <div className='container'>
             <h2 className="mt-5 text-center">Featured Cars</h2>
             <div className="d-flex flex-wrap justify-content-center gap-2 pb-3">
-                <CarCard carId="1"/>
-                <CarCard carId="2"/>
-                <CarCard carId="3"/>
+              {/* Map over the fetched featured cars and pass each car as a prop to CarCard */}
+              {featuredCars.map((car) => (
+                <CarCard key={car._id} car={car} />
+              ))}
             </div>
           </div>
           <h2 className="mt-5 display-5 text-center">About Us</h2>
