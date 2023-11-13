@@ -11,7 +11,7 @@ function Home() {
     // Fetch featured cars from the server
     const fetchFeaturedCars = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/featured');
+        const response = await axios.get('http://localhost:8000/cars/featured');
         setFeaturedCars(response.data);
       } catch (error) {
         console.error('Error fetching featured cars:', error);

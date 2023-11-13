@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import { ref,uploadBytes,getDownloadURL,listAll,deleteObject,} from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, listAll, deleteObject, } from "firebase/storage";
 import { storage } from "./firebase";
 import { v4 } from "uuid";
 import Header from "./Header";
@@ -14,19 +14,19 @@ function AdminPanel() {
 
   //Code to handle Form data
   //Initializing the required states
-  const[carName, setCarName] = useState("");
-  const[carPrice, setCarPrice] = useState("");
-  const[carColor, setCarColor] = useState("");
-  const[carMileage, setCarMileage] = useState("");
-  const[carTransmission, setCarTransmission] = useState("");
-  const[carFeatures, setCarFeatures] = useState(""); //Array of Strings which contain the Features.
-  const[isFeatured , setCarFeatured] = useState("");
+  const [carName, setCarName] = useState("");
+  const [carPrice, setCarPrice] = useState("");
+  const [carColor, setCarColor] = useState("");
+  const [carMileage, setCarMileage] = useState("");
+  const [carTransmission, setCarTransmission] = useState("");
+  const [carFeatures, setCarFeatures] = useState(""); //Array of Strings which contain the Features.
+  const [isFeatured, setCarFeatured] = useState("");
   //imageUrls on submit will contain an array of urls that correspond to the pictures of that car in that color.
 
   //code to send data to mongoDB
   const collectData = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await axios.post("http://localhost:8000/cars/add", {
         carName,
@@ -39,12 +39,12 @@ function AdminPanel() {
         mainImageUrl,
         isFeatured
       });
-  
+
       alert("Message sent successfully");
     } catch (error) {
       console.error("Error sending: ", error);
     }
-  
+
     window.location.reload();
   };
 
@@ -62,7 +62,7 @@ function AdminPanel() {
             alert("Please Enter car name and select a picture to upload.");
             return;
           }
-  
+
           const mainImageRef = ref(storage, `images/${carName}/main/${imageUpload.name + v4()}`);
           const snapshot = await uploadBytes(mainImageRef, imageUpload);
           const url = await getDownloadURL(snapshot.ref);
@@ -72,11 +72,11 @@ function AdminPanel() {
             alert("Please Enter car name, car color, and select a picture to upload.");
             return;
           }
-  
+
           const imageRef = ref(storage, `images/${carName}/${carColor}/${imageUpload.name + v4()}`);
           const snapshot = await uploadBytes(imageRef, imageUpload);
           const url = await getDownloadURL(snapshot.ref);
-  
+
           setImageUrls((prev) => [...prev, url]);
         }
       }
@@ -101,21 +101,21 @@ function AdminPanel() {
   const [mess, setMess] = useState([])
   useEffect(() => {
     axios.get('http://localhost:8000/getMessage')
-    .then(mess => setMess(mess.data))
-    .catch(err => console.log(err))
-  },[]);
-  
+      .then(mess => setMess(mess.data))
+      .catch(err => console.log(err))
+  }, []);
+
   // Code to delete entries.
   const handleDelete = (id) => {
-    if(window.confirm(`Are you sure you want to delete this complaint`)){
-      axios.post('http://localhost:8000/deleteMessage',null , {
-        params : {messid : id}
+    if (window.confirm(`Are you sure you want to delete this complaint`)) {
+      axios.post('http://localhost:8000/deleteMessage', null, {
+        params: { messid: id }
       })
-      .then(res => {
-        alert("record has been deleted");
-        window.location.reload();
-      })
-      .catch(err => console.log(err));
+        .then(res => {
+          alert("record has been deleted");
+          window.location.reload();
+        })
+        .catch(err => console.log(err));
     }
   }
 
@@ -138,14 +138,14 @@ function AdminPanel() {
       // Fetch detailed car information
       const response = await axios.get(`http://localhost:8000/cars/${id}`);
       const carData = response.data;
-  
+
       // Confirm deletion
       if (window.confirm(`Are you sure you want to delete this car?`)) {
         // Delete car from the server
-        await axios.delete(`http://localhost:8000/cars/delete`, null, {
+        await axios.post(`http://localhost:8000/cars/delete`, null, {
           params: { carid: id },
         });
-  
+
         // Delete images from Firebase Storage
         await Promise.all(
           carData.colors.flatMap((color) =>
@@ -159,13 +159,13 @@ function AdminPanel() {
             })
           )
         );
-        
+
         const mRef = ref(storage, carData.mainSrc);
-        try{
+        try {
           await deleteObject(mRef);
         }
-        catch (error){
-          console.error("Error deleting main image",error);
+        catch (error) {
+          console.error("Error deleting main image", error);
         }
         alert('Car has been deleted');
         window.location.reload();
@@ -176,19 +176,19 @@ function AdminPanel() {
   };
 
   //Code to allow for the editing of cars
-  
+
   return (
     <div className="parent">
       <Header />
       <div className='content bg-dark text-white pt-2 overflow-hidden pt-xl-5 pt-lg-5'>
-        <div className='container text-start' style={{width: '50%',marginTop:'5rem',border:'0.16rem solid black',padding:'2.5rem 3.5rem',borderRadius:'0.5rem'}}>
+        <div className='container text-start' style={{ width: '50%', marginTop: '5rem', border: '0.16rem solid black', padding: '2.5rem 3.5rem', borderRadius: '0.5rem' }}>
           <form onSubmit={collectData}>
             {/* Form Heading */}
             <h2 className='text-center pt-3'>Enter Car Details</h2>
 
             {/* Car name */}
             <div className='form-group mb-3 mt-3'>
-              <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Name</label>
+              <label className='form-label' style={{ fontSize: '18px', fontWeight: '600' }}>Name</label>
               <input type='text' className='form-control'
                 value={carName}
                 onChange={(event) => setCarName(event.target.value)}
@@ -197,7 +197,7 @@ function AdminPanel() {
 
             {/* Car color */}
             <div className='form-group mb-3 mt-3'>
-              <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Color</label>
+              <label className='form-label' style={{ fontSize: '18px', fontWeight: '600' }}>Color</label>
               <input type='text' className='form-control'
                 value={carColor}
                 onChange={(event) => setCarColor(event.target.value)}
@@ -206,7 +206,7 @@ function AdminPanel() {
 
             {/* Car Price */}
             <div className='form-group mb-3 mt-3'>
-              <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Price</label>
+              <label className='form-label' style={{ fontSize: '18px', fontWeight: '600' }}>Price</label>
               <input type='text' className='form-control'
                 value={carPrice}
                 onChange={(event) => setCarPrice(event.target.value)}
@@ -215,16 +215,16 @@ function AdminPanel() {
 
             {/* Car Mileage */}
             <div className='form-group mb-3 mt-3'>
-              <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Mileage</label>
+              <label className='form-label' style={{ fontSize: '18px', fontWeight: '600' }}>Mileage</label>
               <input type='text' className='form-control'
-              value={carMileage}
-              onChange={(event) => setCarMileage(event.target.value)}
+                value={carMileage}
+                onChange={(event) => setCarMileage(event.target.value)}
               />
             </div>
 
             {/* Car Transmission Type */}
             <div className='form-group mb-3 mt-3'>
-              <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Transmission</label><br></br>
+              <label className='form-label' style={{ fontSize: '18px', fontWeight: '600' }}>Transmission</label><br></br>
               <div className="form-check form-check-inline">
                 <input className="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio1" value="Automatic" onChange={() => setCarTransmission("Automatic")} />
                 <label className="form-check-label" htmlFor="inlineRadio1">Automatic</label>
@@ -237,7 +237,7 @@ function AdminPanel() {
 
             {/* Option to Choose if car needs to be featured */}
             <div className='form-group mb-3 mt-3'>
-              <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Featured</label><br></br>
+              <label className='form-label' style={{ fontSize: '18px', fontWeight: '600' }}>Featured</label><br></br>
               <div className="form-check form-check-inline">
                 <input className="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio1" value="Yes" onChange={() => setCarFeatured(true)} />
                 <label className="form-check-label" htmlFor="inlineRadio1">Yes</label>
@@ -250,16 +250,16 @@ function AdminPanel() {
 
             {/* Features */}
             <div className='form-group mb-3 mt-3'>
-              <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}><small>Features (newline seperated)</small></label>
-              <textarea className='feat form-control' id='feat' cols="5" rows="5" onChange={() => setCarFeatures(document.getElementById('feat').value.split('\n'))}/>
+              <label className='form-label' style={{ fontSize: '18px', fontWeight: '600' }}><small>Features (newline seperated)</small></label>
+              <textarea className='feat form-control' id='feat' cols="5" rows="5" onChange={() => setCarFeatures(document.getElementById('feat').value.split('\n'))} />
             </div>
 
             {/* Main Image */}
             <div className='form-group mb-3 mt-3'>
-              <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Main Image</label><br></br>
+              <label className='form-label' style={{ fontSize: '18px', fontWeight: '600' }}>Main Image</label><br></br>
               <input type="file" onChange={(event) => {
-                  setImageUpload(event.target.files[0]);
-                }}
+                setImageUpload(event.target.files[0]);
+              }}
               />
               <button type="button" onClick={() => uploadFile("main")}>Upload Main Image</button><br />
               <img src={mainImageUrl} />
@@ -267,14 +267,14 @@ function AdminPanel() {
 
             {/* Images */}
             <div className='form-group mb-3 mt-3'>
-              <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Pictures</label><br></br>
+              <label className='form-label' style={{ fontSize: '18px', fontWeight: '600' }}>Pictures</label><br></br>
               <input type="file" onChange={(event) => {
-                  setImageUpload(event.target.files[0]);
-                }}
+                setImageUpload(event.target.files[0]);
+              }}
               />
               <button type="button" onClick={() => uploadFile("notmain")}>Upload Image</button><br />
               {imageUrls.map((url) => {
-                  return <img src={url} />;
+                return <img src={url} />;
               })}
             </div>
 
@@ -316,14 +316,14 @@ function AdminPanel() {
               <tbody>
                 {
                   mess.map(mess => {
-                    return(
-                    <tr>
-                      <td>{mess.messName}</td>
-                      <td>{mess.messEmail}</td>
-                      <td>{mess.messPhone}</td>
-                      <td>{mess.messMessage}</td>
-                      <td><button type="button" className='btn btn-danger w-100' onClick={() => handleDelete(mess._id)}>Delete</button></td>
-                    </tr>
+                    return (
+                      <tr>
+                        <td>{mess.messName}</td>
+                        <td>{mess.messEmail}</td>
+                        <td>{mess.messPhone}</td>
+                        <td>{mess.messMessage}</td>
+                        <td><button type="button" className='btn btn-danger w-100' onClick={() => handleDelete(mess._id)}>Delete</button></td>
+                      </tr>
                     )
                   })
                 }
@@ -372,7 +372,7 @@ function AdminPanel() {
                             <ul>
                               {color.images.map((image, index) => (
                                 <li key={index}>
-                                  <img src={image} alt={`Color ${color.name} - Image ${index}`} style={{width:"300px"}} />
+                                  <img src={image} alt={`Color ${color.name} - Image ${index}`} style={{ width: "300px" }} />
                                 </li>
                               ))}
                             </ul>
@@ -388,7 +388,7 @@ function AdminPanel() {
           </div>
         </div>
       </div>
-    <Footer />
+      <Footer />
     </div>
   );
 }
