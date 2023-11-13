@@ -235,6 +235,19 @@ function AdminPanel() {
               </div>
             </div>
 
+            {/* Option to Choose if car needs to be featured */}
+            <div className='form-group mb-3 mt-3'>
+              <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}>Featured</label><br></br>
+              <div className="form-check form-check-inline">
+                <input className="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio1" value="Yes" onChange={() => setCarFeatured(true)} />
+                <label className="form-check-label" htmlFor="inlineRadio1">Yes</label>
+              </div>
+              <div className="form-check form-check-inline">
+                <input className="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio2" value="No" onChange={() => setCarFeatured(false)} />
+                <label className="form-check-label" htmlFor="inlineRadio2">No</label>
+              </div>
+            </div>
+
             {/* Features */}
             <div className='form-group mb-3 mt-3'>
               <label className='form-label' style={{fontSize:'18px',fontWeight:'600'}}><small>Features (newline seperated)</small></label>
@@ -335,6 +348,7 @@ function AdminPanel() {
                   <th className='bg-secondary text-white'>Transmission</th>
                   <th className='bg-secondary text-white'>Mileage</th>
                   <th className='bg-secondary text-white'>Features</th>
+                  <th className='bg-secondary text-white'>Featured</th>
                   <th className='bg-secondary text-white'>Main Image</th>
                   <th className='bg-secondary text-white'>Colors</th>
                   <th className='bg-secondary text-white'>Action</th>
@@ -348,6 +362,7 @@ function AdminPanel() {
                     <td>{car.transmission}</td>
                     <td>{car.mileage}</td>
                     <td>{car.features.join(', ')}</td>
+                    <td>{car.isFeatured ? 'Yes' : 'No'}</td>
                     <td><img src={car.mainSrc} /></td>
                     <td>
                       <ul>
