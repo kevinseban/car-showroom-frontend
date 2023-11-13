@@ -28,7 +28,7 @@ function AdminPanel() {
     e.preventDefault();
   
     try {
-      const response = await axios.post("http://localhost:8000/car/add", {
+      const response = await axios.post("http://localhost:8000/cars/add", {
         carName,
         carPrice,
         carColor,
