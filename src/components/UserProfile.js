@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
@@ -88,16 +89,16 @@ function EditProfileModal({ userProfile, onClose, onSave }) {
 
 function UserProfile() {
   const [userProfile, setUserProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
 
   const fetchUserProfile = async () => {
     try {
       const token = localStorage.getItem('token');
 
       if (!token) {
-        setLoading(false);
+        navigate('/login');
         return;
       }
 
@@ -108,11 +109,9 @@ function UserProfile() {
       });
 
       setUserProfile(response.data);
-      setLoading(false);
     } catch (error) {
       console.error('Error fetching user profile:', error);
       setError(error);
-      setLoading(false);
     }
   };
 
@@ -151,14 +150,6 @@ function UserProfile() {
     }
   };
 
-  if (loading) {
-    return <div className='app parent bg-dark'>
-      <Header />
-      <div className='text-white content'>Loading...</div>;
-      <Footer />
-    </div>
-  }
-
   if (error) {
     alert('Error loading/updating user profile. Please check the console for details');
     return <div>User profile data could not be loaded.</div>;
@@ -191,7 +182,15 @@ function UserProfile() {
     );
   }
 
-  return <div>User profile data could not be loaded.</div>;
+  return <div className='app parent'>
+    <Header />
+    <div className='content bg-dark text-white py-5 text-center'>
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <Footer />
+  </div>;
 }
 
 export default UserProfile;

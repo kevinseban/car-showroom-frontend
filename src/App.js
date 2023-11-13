@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { HashRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import CarList from './components/CarList';
 import CarDetail from './components/CarDetail';
@@ -12,12 +12,6 @@ import Register from './components/Register';
 import UserProfile from './components/UserProfile';
 
 function App() {
-  
-  const isUserLoggedIn = localStorage.getItem('token') !== null;
-
-  const PrivateRoute = ({ element, ...props }) => {
-    return isUserLoggedIn ? element : <Navigate to="/login" />;
-  };
 
   return (
     <Router>
@@ -29,10 +23,7 @@ function App() {
         <Route path="car/:id" element={<CarDetail />} />
         <Route path="admin" element={<AdminPanel />} />
         <Route path="contact" element={<Contact />} />
-        <Route
-          path="profile"
-          element={<PrivateRoute element={<UserProfile />} />}
-        />
+        <Route path="profile" element={<UserProfile />} />
       </Routes>
     </Router>
   );

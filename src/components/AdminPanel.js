@@ -369,7 +369,7 @@ function AdminPanel() {
                             <ul>
                               {color.images.map((image, index) => (
                                 <li key={index}>
-                                  <img src={image} alt={`Color ${color.name} - Image ${index}`} />
+                                  <img src={image} alt={`Color ${color.name} - Image ${index}`} style={{width:"300px"}} />
                                 </li>
                               ))}
                             </ul>
