@@ -12,7 +12,9 @@ function Home() {
     const fetchFeaturedCars = async () => {
       try {
         const response = await axios.get('http://localhost:8000/featured');
-        setFeaturedCars(response.data);
+        // Filter out non-featured cars
+        const featuredCarsData = response.data.filter((car) => car.isFeatured);
+        setFeaturedCars(featuredCarsData);
       } catch (error) {
         console.error('Error fetching featured cars:', error);
       }
