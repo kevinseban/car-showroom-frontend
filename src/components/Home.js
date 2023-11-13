@@ -12,9 +12,7 @@ function Home() {
     const fetchFeaturedCars = async () => {
       try {
         const response = await axios.get('http://localhost:8000/featured');
-        // Filter out non-featured cars
-        const featuredCarsData = response.data.filter((car) => car.isFeatured);
-        setFeaturedCars(featuredCarsData);
+        setFeaturedCars(response.data);
       } catch (error) {
         console.error('Error fetching featured cars:', error);
       }
@@ -35,9 +33,8 @@ function Home() {
           <div className='container'>
             <h2 className="mt-5 text-center">Featured Cars</h2>
             <div className="d-flex flex-wrap justify-content-center gap-2 pb-3">
-              {/* Map over the fetched featured cars and pass each car as a prop to CarCard */}
               {featuredCars.map((car) => (
-                <CarCard key={car._id} car={car} />
+                <CarCard key={car._id} carId={car._id} />
               ))}
             </div>
           </div>

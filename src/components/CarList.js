@@ -27,7 +27,7 @@ function CarList() {
         <h2 className='px-5 py-4'>Car List</h2>
         <div className='d-flex flex-wrap justify-content-center gap-5 px-3 pb-3'>
           {cars.map((car) => (
-            <CarCard key={car._id} carId={car._id}/>
+          <CarCard key={car._id} carId={car._id}/>
           ))}
         </div>
       </div>
