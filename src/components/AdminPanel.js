@@ -142,7 +142,7 @@ function AdminPanel() {
       // Confirm deletion
       if (window.confirm(`Are you sure you want to delete this car?`)) {
         // Delete car from the server
-        await axios.post(`http://localhost:8000/car/delete`, null, {
+        await axios.delete(`http://localhost:8000/car/delete`, null, {
           params: { carid: id },
         });
   
