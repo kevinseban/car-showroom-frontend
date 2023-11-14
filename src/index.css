@@ -75,3 +75,16 @@ code {
   width: 20%;
   border-radius: 50%;
 }
+
+.prof{
+  max-width: 60%;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 80%;
+}
