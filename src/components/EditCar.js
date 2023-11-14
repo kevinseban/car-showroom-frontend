@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
-import ImageSlider from './ImageSlider';
 import axios from 'axios';
+import { ref, deleteObject, } from "firebase/storage";
+import { storage } from './firebase';
 
 function EditCar() {
   const { id } = useParams();
@@ -45,6 +46,7 @@ function EditCar() {
       //Make an API call to update the car data
       await axios.put(`http://localhost:8000/cars/update/${id}`, car);
       setEditMode(false);
+      window.location.reload();
     } catch (error) {
       console.error('Error updating car:', error);
     }
@@ -77,6 +79,55 @@ function EditCar() {
     setCar((prevCar) => ({ ...prevCar, features: updatedFeatures }));
   };
 
+  const handleImageDeletion = async (imageIndex) => {
+    if (window.confirm("Are you sure you want to delete this photo?")) {
+      try {
+        // Get the URL of the image to be deleted
+        const imageUrlToDelete = car.colors[selectedColorIndex].images[imageIndex];
+  
+        // Delete the image from Firebase Storage
+        const imageRef = ref(storage, imageUrlToDelete);
+        await deleteObject(imageRef);
+  
+        // Make an API call to delete the image
+        await axios.delete(`http://localhost:8000/cars/deleteImage/${id}/${selectedColorIndex}/${imageIndex}`);
+  
+        // Update the state to reflect the deleted image
+        setCar((prevCar) => {
+          const updatedCar = { ...prevCar };
+          updatedCar.colors[selectedColorIndex].images.splice(imageIndex, 1);
+          return updatedCar;
+        });
+      } catch (error) {
+        console.error('Error deleting image:', error);
+      }
+    }
+  };
+
+  const handleMainImageDeletion = async () => {
+    if (window.confirm("Are you sure you want to delete this photo?")) {
+      try {
+        // Get the URL of the main image to be deleted
+        const mainImageUrlToDelete = car.mainSrc;
+  
+        // Delete the main image from Firebase Storage
+        const mainImageRef = ref(storage, mainImageUrlToDelete);
+        await deleteObject(mainImageRef);
+  
+        // Make an API call to delete the main image
+        await axios.delete(`http://localhost:8000/cars/deleteMainImage/${id}`);
+
+        setCar((prevCar) => {
+          const updatedCar = { ...prevCar };
+          updatedCar.mainSrc = null; 
+          return updatedCar;
+        });
+      } catch (error) {
+        console.error('Error deleting main image:', error);
+      }
+    }
+  };
+  
   return (
     <div className='parent'>
       <Header />
@@ -105,10 +156,41 @@ function EditCar() {
             )}
           </p>
           <div className='img-slider-container'>
-            <ImageSlider images={car.colors[selectedColorIndex].images} />
+            <h2 className='text-center'>Images</h2>
+            {editMode ? (
+                car.colors[selectedColorIndex].images.map((image, imageIndex) => (
+                  <div className="text-center" key={imageIndex}>
+                    <img src={image} alt={`Image ${imageIndex}`} />
+                    <button type="button" onClick={() => handleImageDeletion(imageIndex)}>
+                      Delete Image
+                    </button>
+                    <br /> <br />
+                  </div>
+                ))
+              ) : (
+                car.colors[selectedColorIndex].images.map((image, imageIndex) => (
+                  <div className='text-center' key={imageIndex}>
+                    <img src={image} alt={`Image ${imageIndex}`} />
+                  </div>
+              ))
+              )}
           </div>
+          <br />
+          <div className='img-slider-container'>
+            <h2 className='text-center'>Main Image</h2>
+            <br />
+            {editMode ? (
+              <div className="text-center"> 
+                <img src={car.mainSrc} alt="Image" style={{ maxWidth: '100%' }} />
+                <button type="button" onClick={() => handleMainImageDeletion()}>Delete Image</button>
+              </div>
+            ) : (
+              <div className="text-center">
+                <img src={car.mainSrc} alt="Image" style={{ maxWidth: '100%', height: 'auto' }} />
+              </div>
+            )}
         </div>
-
+      </div>
         <div className='col-xl-4 col-lg-12 col-md-12 pt-5 mt-5 text-center d-flex flex-column justify-content-center'>
           <div>
             <h3>Colors</h3>

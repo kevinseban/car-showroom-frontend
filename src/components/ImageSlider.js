@@ -30,6 +30,7 @@ function ImageSlider(props) {
         <div style={{ width: '100%', height: '100%', position: 'relative' }}>
             <div style={{ width: '100%', height: '100%', overflow: 'hidden', display: 'flex' }}>
                 {props.images.map((imageURL, index) => (
+                    <>
                     <img
                         className='img-slider-img'
                         key={index}
@@ -38,7 +39,9 @@ function ImageSlider(props) {
                         style={{ transform: `translateX(${-100 * imageIndex}%)` }}
                         onClick={() => openImageEnlargement(index)}
                     />
-                ))}
+                    </>
+                )
+                )}
             </div>
             <button onClick={showPreviousImage} className='img-slider-btn' style={{ left: '0' }}>
                 <ArrowBigLeft />
@@ -55,6 +58,7 @@ function ImageSlider(props) {
                         alt={`Car ${enlargedIndex + 1}`}
                         onClick={() => setIsImageEnlarged(false)}
                     />
+                    <br></br>
                 </div>
             )}
         </div>
