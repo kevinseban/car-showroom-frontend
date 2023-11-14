@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Header from './Header';
 import Footer from './Footer';
+import AdminHeader from './AdminHeader';
 
 function AdminProfile() {
   const [adminProfile, setAdminProfile] = useState(null);
@@ -38,7 +38,7 @@ function AdminProfile() {
   if (adminProfile) {
     return (
       <div className='app parent'>
-        <Header />
+        <AdminHeader/>
         <div className='content bg-dark text-white py-5 text-center'>
           <h1>Admin Profile</h1>
           <div>
@@ -51,7 +51,7 @@ function AdminProfile() {
   }
 
   return <div className='app parent'>
-    <Header />
+    <AdminHeader/>
     <div className='content bg-dark text-white py-5 text-center'>
       <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>

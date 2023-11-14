@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import { ref, uploadBytes, getDownloadURL, listAll, deleteObject, } from "firebase/storage";
 import { storage } from "./firebase";
 import { v4 } from "uuid";
-import Header from "./Header";
 import Footer from "./Footer";
 import axios from "axios";
 import { Link } from 'react-router-dom';
+import AdminHeader from './AdminHeader';
 
 function AdminPanel() {
 
@@ -119,7 +119,7 @@ function AdminPanel() {
   
   return (
     <div className="parent">
-      <Header />
+      <AdminHeader/>
       <div className='content bg-dark text-white pt-2 overflow-hidden pt-xl-5 pt-lg-5'>
         <div className='container text-start' style={{ width: '50%', marginTop: '5rem', border: '0.16rem solid black', padding: '2.5rem 3.5rem', borderRadius: '0.5rem' }}>
           <form onSubmit={collectData}>
@@ -249,10 +249,10 @@ function AdminPanel() {
                     Message
                   </th>
                   <th className='bg-secondary text-white text-center'>
-                    Action
+                    Date
                   </th>
                   <th className='bg-secondary text-white text-center'>
-                    Date
+                    Action
                   </th>
                 </tr>
               </thead>

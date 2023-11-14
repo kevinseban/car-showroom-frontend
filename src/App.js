@@ -28,8 +28,11 @@ function App() {
         <Route path="car/:id" element={<CarDetail />} />
         <Route path="contact" element={<Contact />} />
         <Route path="profile" element={<UserProfile />} />
-        <Route path='/admin/car/:id' element={<EditCar />} />
-        <Route path='/admin/allCars' element={<AllCars />} />
+        <Route path="admin" element={<AdminPanel/>}/>
+        <Route path="admin/login" element={<AdminLogin/>}/>
+        <Route path="admin/profile" element={<AdminProfile/>}/>
+        <Route path='admin/car/:id' element={<EditCar />} />
+        <Route path='admin/allCars' element={<AllCars />} />
         <Route path="booking-Page" element={<Ebooking />} />
       </Routes>
     </Router>

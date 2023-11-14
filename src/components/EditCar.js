@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Header from './Header';
 import Footer from './Footer';
 import axios from 'axios';
 import { ref, deleteObject, } from "firebase/storage";
 import { storage } from './firebase';
+import AdminHeader from './AdminHeader';
 
 function EditCar() {
   const { id } = useParams();
@@ -130,7 +130,7 @@ function EditCar() {
   
   return (
     <div className='parent'>
-      <Header />
+      <AdminHeader/>
       <div className='content bg-dark text-white p-4 overflow-hidden lead row'>
         <div className='col-xl-8 col-lg-12 col-md-12 ps-3'>
           <h2 className='display-3 mb-2'>
@@ -160,7 +160,7 @@ function EditCar() {
             {editMode ? (
                 car.colors[selectedColorIndex].images.map((image, imageIndex) => (
                   <div className="text-center" key={imageIndex}>
-                    <img src={image} alt={`Image ->  ${imageIndex}`} />
+                    <img src={image} alt={`Image ->  ${imageIndex}`} width={"300px"} />
                     <button type="button" onClick={() => handleImageDeletion(imageIndex)}>
                       Delete Image
                     </button>
@@ -170,7 +170,7 @@ function EditCar() {
               ) : (
                 car.colors[selectedColorIndex].images.map((image, imageIndex) => (
                   <div className='text-center' key={imageIndex}>
-                    <img src={image} alt={`Image ${imageIndex}`} />
+                    <img src={image} alt={`Image ${imageIndex}`} width={"300px"}/>
                   </div>
               ))
               )}
@@ -181,12 +181,12 @@ function EditCar() {
             <br />
             {editMode ? (
               <div className="text-center"> 
-                <img src={car.mainSrc} alt="Main image of car" style={{ maxWidth: '100%' }} />
+                <img src={car.mainSrc} alt="Main image of car" width={"300px"} />
                 <button type="button" onClick={() => handleMainImageDeletion()}>Delete Image</button>
               </div>
             ) : (
               <div className="text-center">
-                <img src={car.mainSrc} alt="main image of car" style={{ maxWidth: '100%', height: 'auto' }} />
+                <img src={car.mainSrc} alt="main image of car" width={"300px"}/>
               </div>
             )}
         </div>
