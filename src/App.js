@@ -12,6 +12,7 @@ import Register from './components/Register';
 import UserProfile from './components/UserProfile';
 import EditCar from './components/EditCar';
 import AllCars from './components/AllCars';
+import Ebooking from './components/Ebooking';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="profile" element={<UserProfile />} />
         <Route path='/admin/car/:id' element={<EditCar />} />
         <Route path='/admin/allCars' element={<AllCars />} />
+        <Route path="booking-Page" element={<Ebooking />} />
       </Routes>
     </Router>
   );
