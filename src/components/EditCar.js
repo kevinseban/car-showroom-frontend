@@ -160,7 +160,7 @@ function EditCar() {
             {editMode ? (
                 car.colors[selectedColorIndex].images.map((image, imageIndex) => (
                   <div className="text-center" key={imageIndex}>
-                    <img src={image} alt={`Image ${imageIndex}`} />
+                    <img src={image} alt={`Image ->  ${imageIndex}`} />
                     <button type="button" onClick={() => handleImageDeletion(imageIndex)}>
                       Delete Image
                     </button>
@@ -181,12 +181,12 @@ function EditCar() {
             <br />
             {editMode ? (
               <div className="text-center"> 
-                <img src={car.mainSrc} alt="Image" style={{ maxWidth: '100%' }} />
+                <img src={car.mainSrc} alt="Main image of car" style={{ maxWidth: '100%' }} />
                 <button type="button" onClick={() => handleMainImageDeletion()}>Delete Image</button>
               </div>
             ) : (
               <div className="text-center">
-                <img src={car.mainSrc} alt="Image" style={{ maxWidth: '100%', height: 'auto' }} />
+                <img src={car.mainSrc} alt="main image of car" style={{ maxWidth: '100%', height: 'auto' }} />
               </div>
             )}
         </div>
