@@ -117,11 +117,7 @@ function EditCar() {
         // Make an API call to delete the main image
         await axios.delete(`http://localhost:8000/cars/deleteMainImage/${id}`);
 
-        setCar((prevCar) => {
-          const updatedCar = { ...prevCar };
-          updatedCar.mainSrc = null; 
-          return updatedCar;
-        });
+        window.location.reload();
       } catch (error) {
         console.error('Error deleting main image:', error);
       }
