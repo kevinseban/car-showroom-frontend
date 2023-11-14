@@ -6,6 +6,7 @@ import { v4 } from "uuid";
 import Header from "./Header";
 import Footer from "./Footer";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
 function AdminPanel() {
 
@@ -271,6 +272,10 @@ function AdminPanel() {
           </div>
         </div>
         <br /><br />
+        <div className='container-fuild text-center'>
+            <Link to="/admin/AllCars" className='btn btn-primary'>View all Cars</Link>
+          </div>
+        <br></br><br></br>
       </div>
       <Footer />
     </div>
