@@ -81,7 +81,7 @@ function Ebooking()
         }
 
         try {
-            const response = await axios.post("http://localhost:8000/Booking/newBooking", {
+            const response = await axios.post("http://localhost:8000/booking/newBooking", {
                 name,
                 email,
                 Username,
