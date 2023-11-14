@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons'; // Import brand icons
 import { Link } from 'react-router-dom';
 
 function Footer() {
@@ -20,12 +21,18 @@ function Footer() {
                             <Link to="/cars" className='nav-link text-secondary py-1'>Browse Cars</Link>
                             <Link to="/contact" className='nav-link text-secondary py-1'>Contact Us</Link>
                         </div>            
-                        <div className='col-lg-4 col-md-12 d-flex flex-column justify-content-center align-items-start gap-2 pb-2 align-items-lg-end pe-4'>
-                            <h5 style={{paddingRight:60}}>Subscribe</h5>
-                            <form className='d-flex flex-column justify-content-center align-items-center gap-2'>
-                                <input className='form-control py-1' placeholder='Your email' type='email' />
-                                <button className='btn btn-outline-primary w-100 py-1' type='submit'>Subscribe</button>
-                            </form>
+                        <div className='col-lg-4 col-md-12 d-flex flex-column justify-content-center align-items-center gap-2 pb-2 align-items-lg-end pe-4'>
+                            <div className='d-flex gap-5 justify-content-center'>
+                                <a href="https://www.facebook.com" target='_blank' className='text-decoration-none text-white'>
+                                    <FontAwesomeIcon icon={faFacebook} size="2x" />
+                                </a>
+                                <a href="https://www.twitter.com" target='_blank' className='text-decoration-none text-white'>
+                                    <FontAwesomeIcon icon={faTwitter} size="2x" />
+                                </a>
+                                <a href="https://www.instagram.com" target='_blank' className='text-decoration-none text-white'>
+                                    <FontAwesomeIcon icon={faInstagram} size="2x" />
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

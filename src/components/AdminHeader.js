@@ -28,6 +28,9 @@ function AdminHeader() {
             <li className="nav-item">
               <Link to="/admin/AllCars" className="nav-link">View all Cars</Link>
             </li>
+            <li className="nav-item">
+              <Link to="/admin/complaints" className="nav-link">View all Complaints</Link>
+            </li>
           </ul>
           <ul className='ms-auto navbar-nav'>
             {isAuthenticated ? (
