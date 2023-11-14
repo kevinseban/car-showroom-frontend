@@ -1,11 +1,10 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import { ref, uploadBytes, getDownloadURL, listAll, deleteObject, } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
 import { storage } from "./firebase";
 import { v4 } from "uuid";
 import Footer from "./Footer";
 import axios from "axios";
-import { Link } from 'react-router-dom';
 import AdminHeader from './AdminHeader';
 
 function AdminPanel() {
