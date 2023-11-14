@@ -89,7 +89,7 @@ function AdminCarCard(props) {
     })();
 
     return (
-        <div className='my-2 car-card px-4 text-black justify-content-center d-flex flex-column'>
+        <div className='my-2 car-card px-4 text-black justify-content-center d-flex flex-column' style={{minWidth:"25%"}}>
             <h4>{car.name}</h4>
             <h5 className='lead'>From ₹ {car.price}</h5>
             <img src={carImageSrc} className="card-img img-fluid my-2" alt="Car" />
@@ -103,9 +103,9 @@ function AdminCarCard(props) {
                     <p className='lead' style={{ fontSize: "small" }}>{car.mileage}Km/l</p>
                 </div>
             </div>
-            <div className='d-flex flex-row'>
-                <button type="button" className='btn btn-danger mt-2' onClick={() => handleDeleteCar(car._id)}>Delete</button>
-                <button type="button" className='btn btn-warning mt-2' onClick={() => handleEditCar(car._id)}>Edit</button>
+            <div className='d-flex justify-content-between mt-2'>
+                <button type="button" className='btn btn-danger w-50' onClick={() => handleDeleteCar(car._id)}>Delete</button>
+                <button type="button" className='btn btn-warning w-50' onClick={() => handleEditCar(car._id)}>Edit</button>
             </div>
         </div>
     );
