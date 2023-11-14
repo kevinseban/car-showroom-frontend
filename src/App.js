@@ -30,6 +30,7 @@ function App() {
         <Route path="profile" element={<UserProfile />} />
         <Route path='/admin/car/:id' element={<EditCar />} />
         <Route path='/admin/allCars' element={<AllCars />} />
+        <Route path="booking-Page" element={<Ebooking />} />
       </Routes>
     </Router>
   );
