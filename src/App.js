@@ -10,6 +10,8 @@ import Contact from './components/Contact';
 import { Login } from './components/Login';
 import Register from './components/Register';
 import UserProfile from './components/UserProfile';
+import EditCar from './components/EditCar';
+import AllCars from './components/AllCars';
 
 function App() {
 
@@ -24,6 +26,8 @@ function App() {
         <Route path="admin" element={<AdminPanel />} />
         <Route path="contact" element={<Contact />} />
         <Route path="profile" element={<UserProfile />} />
+        <Route path='/admin/car/:id' element={<EditCar />} />
+        <Route path='/admin/allCars' element={<AllCars />} />
       </Routes>
     </Router>
   );

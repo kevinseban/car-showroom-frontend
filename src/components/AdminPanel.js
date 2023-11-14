@@ -5,12 +5,9 @@ import { storage } from "./firebase";
 import { v4 } from "uuid";
 import Header from "./Header";
 import Footer from "./Footer";
-import { async } from '@firebase/util';
 import axios from "axios";
 
-
 function AdminPanel() {
-  // const features = document.getElementById('feat').value.split('\n'); -> method to convert textarea features into array of features.
 
   //Code to handle Form data
   //Initializing the required states
@@ -20,7 +17,7 @@ function AdminPanel() {
   const [carMileage, setCarMileage] = useState("");
   const [carTransmission, setCarTransmission] = useState("");
   const [carFeatures, setCarFeatures] = useState(""); //Array of Strings which contain the Features.
-  const [isFeatured, setCarFeatured] = useState("");
+  const [isFeatured, setCarFeatured] = useState(false);
   //imageUrls on submit will contain an array of urls that correspond to the pictures of that car in that color.
 
   //code to send data to mongoDB
@@ -118,65 +115,7 @@ function AdminPanel() {
         .catch(err => console.log(err));
     }
   }
-
-  //Code to display all cars
-  const [cars, setCars] = useState([]);
-  useEffect(() => {
-    // Fetch car details from the server
-    axios.get('http://localhost:8000/cars/all')
-      .then(response => {
-        setCars(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching car details: ', error);
-      });
-  }, []);
-
-  //Code to allow the deletion of cars
-  const handleDeleteCar = async (id) => {
-    try {
-      // Fetch detailed car information
-      const response = await axios.get(`http://localhost:8000/cars/${id}`);
-      const carData = response.data;
-
-      // Confirm deletion
-      if (window.confirm(`Are you sure you want to delete this car?`)) {
-        // Delete car from the server
-        await axios.post(`http://localhost:8000/cars/delete`, null, {
-          params: { carid: id },
-        });
-
-        // Delete images from Firebase Storage
-        await Promise.all(
-          carData.colors.flatMap((color) =>
-            color.images.map(async (imageUrl) => {
-              const imageRef = ref(storage, imageUrl);
-              try {
-                await deleteObject(imageRef);
-              } catch (error) {
-                console.error('Error deleting image from Firebase Storage:', error);
-              }
-            })
-          )
-        );
-
-        const mRef = ref(storage, carData.mainSrc);
-        try {
-          await deleteObject(mRef);
-        }
-        catch (error) {
-          console.error("Error deleting main image", error);
-        }
-        alert('Car has been deleted');
-        window.location.reload();
-      }
-    } catch (error) {
-      console.log('Error fetching car details:', error);
-    }
-  };
-
-  //Code to allow for the editing of cars
-
+  
   return (
     <div className="parent">
       <Header />
@@ -288,7 +227,7 @@ function AdminPanel() {
         <br /><br />
         <hr />
         <br />
-
+          
         {/* Table for complaints */}
         <h2 className='text-center'>Complaints</h2><br />
         <div className='w-100 d-flex justify-content-center align-items-center table-responsive'>
@@ -331,62 +270,7 @@ function AdminPanel() {
             </table>
           </div>
         </div>
-
         <br /><br />
-        <hr />
-        <br />
-
-        {/* Table to list all Cars */}
-        <h2 className='text-center'>Car Details</h2>
-        <div className="w-100 d-flex justify-content-center align-items-center table-responsive">
-          <div className="w-50">
-            <table className="table table-striped table-hover">
-              <thead>
-                <tr>
-                  <th className='bg-secondary text-white'>Name</th>
-                  <th className='bg-secondary text-white'>Price</th>
-                  <th className='bg-secondary text-white'>Transmission</th>
-                  <th className='bg-secondary text-white'>Mileage</th>
-                  <th className='bg-secondary text-white'>Features</th>
-                  <th className='bg-secondary text-white'>Featured</th>
-                  <th className='bg-secondary text-white'>Main Image</th>
-                  <th className='bg-secondary text-white'>Colors</th>
-                  <th className='bg-secondary text-white'>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cars.map(car => (
-                  <tr key={car._id}>
-                    <td>{car.name}</td>
-                    <td>{car.price}</td>
-                    <td>{car.transmission}</td>
-                    <td>{car.mileage}</td>
-                    <td>{car.features.join(', ')}</td>
-                    <td>{car.isFeatured ? 'Yes' : 'No'}</td>
-                    <td><img src={car.mainSrc} /></td>
-                    <td>
-                      <ul>
-                        {car.colors.map(color => (
-                          <li key={color._id}>
-                            <strong>{color.name}</strong>
-                            <ul>
-                              {color.images.map((image, index) => (
-                                <li key={index}>
-                                  <img src={image} alt={`Color ${color.name} - Image ${index}`} style={{ width: "300px" }} />
-                                </li>
-                              ))}
-                            </ul>
-                          </li>
-                        ))}
-                      </ul>
-                    </td>
-                    <td><button type="button" className='btn btn-danger w-100' onClick={() => handleDeleteCar(car._id)}>Delete</button></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
       </div>
       <Footer />
     </div>
