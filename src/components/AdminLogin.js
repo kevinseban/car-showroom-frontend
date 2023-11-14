@@ -10,7 +10,7 @@ export const AdminLogin = () => {
     const history = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('adminToken');
         if(token){
             history('/admin');
         }
@@ -28,7 +28,7 @@ export const AdminLogin = () => {
             const { token, user } = response.data;
             if (token) {
               // Store the token in local storage
-              localStorage.setItem("token", token);
+              localStorage.setItem("adminToken", token);
               console.log("Logged in as admin with email:", user.username);
               console.log("Token:", token);
               history("/admin", { state: { id: user.username } });

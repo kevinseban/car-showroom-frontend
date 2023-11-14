@@ -103,8 +103,8 @@ function AdminCarCard(props) {
                     <p className='lead' style={{ fontSize: "small" }}>{car.mileage}Km/l</p>
                 </div>
             </div>
-            <div className='d-flex justify-content-between mt-2'>
-                <button type="button" className='btn btn-danger w-50' onClick={() => handleDeleteCar(car._id)}>Delete</button>
+            <div className='d-flex justify-content-between my-2'>
+                <button type="button" className='btn btn-danger w-50 me-3' onClick={() => handleDeleteCar(car._id)}>Delete</button>
                 <button type="button" className='btn btn-warning w-50' onClick={() => handleEditCar(car._id)}>Edit</button>
             </div>
         </div>

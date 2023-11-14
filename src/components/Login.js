@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import Header from "./Header";
@@ -8,6 +8,13 @@ export const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const history = useNavigate();
+    
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if(token){
+            history('/');
+        }
+    }, [history]);
 
     async function submit(e) {
         e.preventDefault();

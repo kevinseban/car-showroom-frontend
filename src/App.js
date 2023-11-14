@@ -15,7 +15,7 @@ import AllCars from './components/AllCars';
 import Ebooking from './components/Ebooking';
 import { AdminLogin } from './components/AdminLogin';
 import AdminProfile from './components/AdminProfile';
-import AdminComplaints from './components/AdminComplaints';
+import AdminMessages from './components/AdminComplaints';
 
 function App() {
 
@@ -35,7 +35,7 @@ function App() {
         <Route path='admin/car/:id' element={<EditCar />} />
         <Route path='admin/allCars' element={<AllCars />} />
         <Route path="booking-Page" element={<Ebooking />} />
-        <Route path='admin/complaints' element={<AdminComplaints />} />
+        <Route path='admin/messages' element={<AdminMessages />} />
       </Routes>
     </Router>
   );

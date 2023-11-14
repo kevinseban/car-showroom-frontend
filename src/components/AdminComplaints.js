@@ -4,7 +4,7 @@ import axios from "axios";
 import AdminHeader from './AdminHeader';
 import Footer from './Footer';
 
-function AdminComplaints () {
+function AdminMessages () {
 
     // Code to display messages from the Contact Us DB.
     const [mess, setMess] = useState([])
@@ -32,7 +32,7 @@ function AdminComplaints () {
         <div className="parent">
             <AdminHeader />
             <div className='content bg-dark text-white pt-2 overflow-hidden pt-xl-5 pt-lg-5'>
-                <h2 className='text-center'>Complaints</h2><br />
+                <h2 className='text-center'>Messages</h2><br />
                 <div className='w-100 d-flex justify-content-center align-items-center table-responsive'>
                     <div className="w-50">
                         <table className='table table-striped table-hover'>
@@ -83,4 +83,4 @@ function AdminComplaints () {
     );
 }
 
-export default AdminComplaints;
+export default AdminMessages;
