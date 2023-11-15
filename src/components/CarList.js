@@ -10,7 +10,6 @@ function CarList() {
 
   const handleSearch = async () => {
     try {
-      console.log(searchTerm);
       var response;
       if (searchTerm === "") {
         response = await axios.get('http://localhost:8000/cars/all');
@@ -25,24 +24,23 @@ function CarList() {
 
   useEffect(() => {
     handleSearch();
-  }, [searchTerm]);
+  }, []);
 
   return (
     <div className='parent'>
       <Header />
       <div className="content w-100 p-5 bg-dark text-white">
-        <div className='container-fluid text-center'>
-          <h2 className='px-5 py-4'>Car List</h2><br></br>
-          <div className="search-bar px-5 mb-4">
-            <input
-              type="text"
-              style={{ width: "300px" }}
-              placeholder="Search by car name"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyUp={handleSearch}
-            /><br /><br />
-          </div>
+        <div className='row justify-content-center align-items-center'>
+          <h2 className='px-5 py-4 col-8'>Car List</h2>
+          <input
+            type="text"
+            style={{ width: "fit-content", height:"fit-content" }}
+            className='px-3 col-4'
+            placeholder="Search by car name"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyUp={handleSearch}
+          />
         </div>
         <div className='d-flex flex-wrap justify-content-center gap-5 px-3 pb-3'>
           {cars.map((car) => (
