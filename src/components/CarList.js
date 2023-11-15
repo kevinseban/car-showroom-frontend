@@ -37,7 +37,7 @@ function CarList() {
             <input
               type="text"
               style={{ width: "300px" }}
-              placeholder="Search by model, make, etc."
+              placeholder="Search by car name"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyUp={handleSearch}
