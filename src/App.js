@@ -17,6 +17,7 @@ import { AdminLogin } from './components/AdminLogin';
 import AdminProfile from './components/AdminProfile';
 import AdminMessages from './components/AdminMessages';
 import AdminBookings from './components/AdminBookings';
+import AdminViewUsers from './components/AdminViewUsers';
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
         <Route path='admin/allCars' element={<AllCars />} />
         <Route path='admin/messages' element={<AdminMessages />} />
         <Route path='admin/bookings' element={<AdminBookings/>}/>
+        <Route path='admin/viewUsers' element={<AdminViewUsers />}/>
       </Routes>
     </Router>
   );
