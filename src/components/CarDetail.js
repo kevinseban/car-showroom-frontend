@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import ImageSlider from './ImageSlider';
@@ -79,6 +79,9 @@ function CarDetail() {
                 </li>
               ))}
             </ul>
+          </div>
+          <div className='container-fluid'>
+          <Link to='/booking' className="btn btn-primary w-50 p-1 mt-3 text-center" style={{ height: "fit-content" }}>E-book</Link>
           </div>
         </div>
       </div>
