@@ -5,10 +5,10 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 function AdminHeader() {
   const navigate = useNavigate();
-  const isAuthenticated = localStorage.getItem('token');
+  const isAuthenticated = localStorage.getItem('adminToken');
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('adminToken');
     console.log("Logged out")
     navigate('/admin/login');
   };
@@ -23,7 +23,7 @@ function AdminHeader() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link to="/admin" className="nav-link">Home</Link>
+              <Link to="/admin" className="nav-link">Add Car</Link>
             </li>
             <li className="nav-item">
               <Link to="/admin/AllCars" className="nav-link">View all Cars</Link>

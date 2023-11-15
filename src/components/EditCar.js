@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Footer from './Footer';
 import axios from 'axios';
 import { ref, deleteObject, } from "firebase/storage";
@@ -7,6 +7,16 @@ import { storage } from './firebase';
 import AdminHeader from './AdminHeader';
 
 function EditCar() {
+  
+  const navigate = useNavigate();
+  useEffect(() => {
+    const adminToken = localStorage.getItem('adminToken');
+    if (!adminToken) {
+      // Redirect to admin login if adminToken is not present
+      navigate('/admin/login');
+    }
+  }, [navigate]);
+
   const { id } = useParams();
   const [car, setCar] = useState(null);
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);

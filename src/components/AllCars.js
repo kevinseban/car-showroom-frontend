@@ -7,10 +7,21 @@ import axios from "axios";
 // import { useNavigate } from 'react-router-dom';
 import AdminHeader from './AdminHeader';
 import AdminCarCard from './AdminCarCard';
+import { useNavigate } from 'react-router-dom';
 
 
 
 function AdminPanel() {
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    const adminToken = localStorage.getItem('adminToken');
+    if (!adminToken) {
+      // Redirect to admin login if adminToken is not present
+      navigate('/admin/login');
+    }
+  }, [navigate]);
+
   const [cars, setCars] = useState([]);
   useEffect(() => {
     // Fetch car data for all the cars in the server

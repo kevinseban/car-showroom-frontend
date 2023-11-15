@@ -3,8 +3,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AdminHeader from './AdminHeader';
 import Footer from './Footer';
+import { useNavigate } from 'react-router-dom';
 
-function AdminMessages () {
+function AdminMessages () {    
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const adminToken = localStorage.getItem('adminToken');
+    if (!adminToken) {
+      // Redirect to admin login if adminToken is not present
+      navigate('/admin/login');
+    }
+  }, [navigate]);
 
     // Code to display messages from the Contact Us DB.
     const [mess, setMess] = useState([])
