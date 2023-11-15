@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Footer from './Footer';
 import axios from 'axios';
-import { ref, deleteObject, } from "firebase/storage";
+import { ref, deleteObject, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
 import { storage } from './firebase';
 import AdminHeader from './AdminHeader';
+import { v4 } from 'uuid';
 
 function EditCar() {
   
@@ -21,6 +22,9 @@ function EditCar() {
   const [car, setCar] = useState(null);
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
   const [editMode, setEditMode] = useState(false);
+  const [imageUpload ,setImageUpload] = useState(null);
+  const [mainImageUrl, setMainImageUrls] = useState("");
+  const [imageUrls, setImageUrls] = useState([]);
 
   useEffect(() => {
     //GEt Car Data for the ._id
@@ -35,6 +39,69 @@ function EditCar() {
 
     fetchCarData();
   }, [id]);
+
+  const carName = car?.name;  // Use optional chaining to handle null or undefined
+  const selectedColor = car?.colors[selectedColorIndex];  // Use optional chaining
+  const colorName = selectedColor ? selectedColor.name : null;
+  const imagesListRef = ref(storage, `images/${carName}/${colorName}`);
+
+  const handleImageAdd = async (s) => {
+    try{
+      if(window.confirm("Are you sure you want to upload this photo")) {
+        if(s == "main"){
+          if(imageUpload == null){
+            alert("Please select a picture to upload");
+            return;
+          }
+          const mImageref = ref(storage , `images/${carName}/main/${imageUpload.name + v4()}`);
+          const snapshot = await uploadBytes(mImageref , imageUpload);
+          const url = await getDownloadURL(snapshot.ref);
+          setMainImageUrls(url);
+        } else {
+          if (imageUpload == null) {
+            alert("Please Enter car name, car color, and select a picture to upload.");
+            return;
+          }
+
+          const imRef = ref (storage , `images/${carName}/${colorName}/${imageUpload.name + v4()}`);
+          const snapshot = await uploadBytes(imRef, imageUpload);
+          const url = await getDownloadURL(snapshot.ref);
+
+          setImageUrls((prev) => [...prev, url]);
+        }
+      }
+    } catch (error){
+      console.error("Error Uploading file",error);
+    }
+  };
+
+  useEffect(() => {
+    listAll(imagesListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageUrls((prev) => [...prev, url]);
+        });
+      });
+    });
+  }, []);
+  
+  const collectData = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8000/cars/addEdit", {
+        carName,
+        colorName,
+        imageUrls,
+        mainImageUrl,
+      });
+
+      alert("Message sent successfully");
+    } catch (error) {
+      console.error("Error sending: ", error);
+    }
+
+    window.location.reload();
+  };
 
   const handleColorChange = (colorIndex) => {
     setSelectedColorIndex(colorIndex);
@@ -133,6 +200,7 @@ function EditCar() {
       }
     }
   };
+
   
   return (
     <div className='parent'>
@@ -206,7 +274,7 @@ function EditCar() {
                 onChange={(e) => handleColorChange(e.target.value)}
                 style={{ display: 'block', margin: '0 auto' }}
               >
-                {car.colors.map((color, index) => (
+                {car.colors.length > 0 && car.colors.map((color, index) => (
                   <option key={color.colorId} value={index}>
                     {color.name}
                   </option>
@@ -294,6 +362,30 @@ function EditCar() {
               <button className='btn btn-primary' onClick={handleEditModeToggle}>Edit</button>
             )}
           </div>
+          <br />
+          <form onSubmit={collectData} style={{border:"1px solid black", padding:"2rem"}}>
+            <div>
+              <input type="file" onChange={(event) => {
+                    setImageUpload(event.target.files[0]);
+                  }}
+              />
+              <button type="button" className='btn btn-primary' onClick={() => handleImageAdd("not main")}>Add Photo</button><br /><br />
+              {imageUrls.map((url) => {
+                return <img src={url} />;
+              })}
+            </div>
+            <div>
+            <input type="file" onChange={(event) => {
+                  setImageUpload(event.target.files[0]);
+                }}
+            />
+            <button type="button" className='btn btn-primary' onClick={() => handleImageAdd("main")}>Add Main Photo</button><br /><br />
+            <img src={mainImageUrl} />
+            </div>
+            <div>
+              <button type='submit' className='btn btn-primary'>Submit</button>
+            </div>
+          </form>
         </div>
       </div>
       <Footer />
