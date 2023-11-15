@@ -47,7 +47,7 @@ function AdminPanel() {
           <h2 className='px-5 py-4 col-8'>Car List</h2>
           <input
             type="text"
-            style={{ width: "fit-content", height:"fit-content",borderRadius:"1rem" }}
+            style={{ width: "fit-content", height:"fit-content", borderRadius: "5px"  }}
             className='px-3 col-4'
             placeholder="Search by car name"
             value={searchTerm}
