@@ -51,15 +51,12 @@ function AdminBookings() {
                   <th>Name</th>
                   <th>Email</th>
                   <th>Username</th>
-                  <th>State</th>
                   <th>Phone</th>
-                  <th>City</th>
-                  <th>Pin</th>
-                  <th>Dealer Name</th>
-                  <th>Dealer City</th>
-                  <th>Dealer State</th>
+                  <th>Address</th>
+                  <th>Pincode</th>
                   <th>Car Name</th>
                   <th>Car Color</th>
+                  <th>Date</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -68,16 +65,13 @@ function AdminBookings() {
                   <tr key={index}>
                     <td>{booking.name}</td>
                     <td>{booking.email}</td>
-                    <td>{booking.Username}</td>
-                    <td>{booking.Userstate}</td>
+                    <td>{booking.username}</td>
                     <td>{booking.phone}</td>
-                    <td>{booking.Usercity}</td>
-                    <td>{booking.Userpin}</td>
-                    <td>{booking.Dealername}</td>
-                    <td>{booking.Dealercity}</td>
-                    <td>{booking.Dealerstate}</td>
-                    <td>{booking.Carname}</td>
-                    <td>{booking.Carcolor}</td>
+                    <td>{booking.address}</td>
+                    <td>{booking.pincode}</td>
+                    <td>{booking.carname}</td>
+                    <td>{booking.carcolor}</td>
+                    <td>{new Date(booking.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' })}</td>
                     <td>
                       <button
                         type="button"

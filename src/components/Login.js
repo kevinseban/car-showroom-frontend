@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 
 export const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const history = useNavigate();
-    
+
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if(token){
-            history('/');
+        if (token) {
+            // Redirect to the previous page or a default page if there's no previous page
+            window.history.back();
         }
-    }, [history]);
+    }, []);
 
     async function submit(e) {
         e.preventDefault();
@@ -25,14 +25,16 @@ export const Login = () => {
                 password,
             });
 
-            const { token, user } = response.data;
+            const { token } = response.data;
             if (token) {
                 // Store the token in local storage
                 localStorage.setItem("token", token);
                 console.log("Logged in with email:", username);
                 console.log("Password:", password);
                 console.log("Token:", token);
-                history("/", { state: { id: user.username } });
+
+                // Redirect to the previous page or a default page if there's no previous page
+                window.history.back();
             } else {
                 alert("Wrong details or user does not exist");
             }

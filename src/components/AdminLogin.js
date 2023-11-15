@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -11,8 +11,9 @@ export const AdminLogin = () => {
 
     useEffect(() => {
         const token = localStorage.getItem('adminToken');
-        if(token){
-            history('/admin');
+        if (token) {
+            // Redirect to the previous page or a default page if there's no previous page
+            window.history.back();
         }
     }, [history]);
 
@@ -27,13 +28,15 @@ export const AdminLogin = () => {
 
             const { token, user } = response.data;
             if (token) {
-              // Store the token in local storage
-              localStorage.setItem("adminToken", token);
-              console.log("Logged in as admin with email:", user.username);
-              console.log("Token:", token);
-              history("/admin", { state: { id: user.username } });
+                // Store the token in local storage
+                localStorage.setItem("adminToken", token);
+                console.log("Logged in as admin with email:", user.username);
+                console.log("Token:", token);
+
+                // Redirect to the previous page or a default page if there's no previous page
+                window.history.back();
             } else {
-              alert("Wrong details or user does not exist");
+                alert("Wrong details or user does not exist");
             }
         } catch (error) {
             console.error("Error logging in: ", error);
@@ -73,8 +76,6 @@ export const AdminLogin = () => {
                             Log In
                         </button>
                     </form>
-                    <br />
-                    <Link to="/signup">Don't have an account? Register here.</Link>
                 </div>
             </center>
             <Footer />
