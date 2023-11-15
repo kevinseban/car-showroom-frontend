@@ -8,26 +8,24 @@ function CarList() {
   const [cars, setCars] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
-    const fetchCarsData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/cars/all');
-        setCars(response.data);
-      } catch (error) {
-        console.error('Error fetching car list:', error);
-      }
-    };
-    fetchCarsData();
-  }, []);
-
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/cars/search/${searchTerm}`);
+      console.log(searchTerm);
+      var response;
+      if (searchTerm === "") {
+        response = await axios.get('http://localhost:8000/cars/all');
+      } else {
+        response = await axios.get(`http://localhost:8000/cars/search/${searchTerm}`);
+      }
       setCars(response.data);
     } catch (error) {
       console.error('Error searching for cars:', error);
     }
   };
+
+  useEffect(() => {
+    handleSearch();
+  }, [searchTerm]);
 
   return (
     <div className='parent'>
@@ -38,17 +36,17 @@ function CarList() {
           <div className="search-bar px-5 mb-4">
             <input
               type="text"
-              style={{width:"300px"}}
+              style={{ width: "300px" }}
               placeholder="Search by model, make, etc."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyUp={handleSearch}
             /><br /><br />
-            <button className='btn btn-primary' onClick={handleSearch}>Search</button>
           </div>
         </div>
         <div className='d-flex flex-wrap justify-content-center gap-5 px-3 pb-3'>
           {cars.map((car) => (
-            <CarCard key={car._id} carId={car._id}/>
+            <CarCard key={car._id} carId={car._id} />
           ))}
         </div>
       </div>
