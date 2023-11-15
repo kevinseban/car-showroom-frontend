@@ -36,7 +36,7 @@ function CarList() {
             type="text"
             style={{ width: "fit-content", height:"fit-content", borderRadius: "5px"  }}
             className='px-3 col-4'
-            placeholder="Search by car name"
+            placeholder="Search by name, color, etc"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyUp={handleSearch}

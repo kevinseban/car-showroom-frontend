@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 function AdminBookings() {
   const navigate = useNavigate();
   const [bookings, setBookings] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchDate, setSearchDate] = useState('');
 
   useEffect(() => {
     const adminToken = localStorage.getItem('adminToken');
@@ -18,6 +20,30 @@ function AdminBookings() {
       fetchBookings();
     }
   }, [navigate]);
+
+  useEffect(() => {
+    // Use a separate function to handle search
+    const handleSearch = async () => {
+      try {
+        let response;
+
+        if (searchTerm === "" && searchDate === "") {
+          response = await axios.get('http://localhost:8000/booking/getBookings');
+        } else if (searchDate !== "") {
+          response = await axios.get(`http://localhost:8000/booking/searchBookingsByDate/${searchDate}`);
+        } else {
+          response = await axios.get(`http://localhost:8000/booking/searchBookings/${searchTerm}`);
+        }
+
+        setBookings(response.data);
+      } catch (error) {
+        console.error('Error searching for bookings:', error);
+      }
+    };
+
+    // Call handleSearch when either searchTerm or searchDate changes
+    handleSearch();
+  }, [searchTerm, searchDate]);
 
   const fetchBookings = async () => {
     try {
@@ -41,10 +67,27 @@ function AdminBookings() {
   return (
     <div className="parent">
       <AdminHeader />
-      <div className="content bg-dark text-white pt-2 overflow-hidden pt-xl-5 pt-lg-5">
-        <h2 className="text-center">Admin Bookings</h2>
-        <div className="w-100 d-flex justify-content-center align-items-center table-responsive">
-          <div className="w-100 p-4">
+      <div className="content w-100 p-5 bg-dark text-white">
+        <div className='row justify-content-center align-items-center'>
+          <h2 className='px-5 py-4 col-8'>Bookings List</h2>
+          <input
+            type="text"
+            style={{ width: "fit-content", height: "fit-content", borderRadius: "5px" }}
+            className='px-3 col-4 my-2'
+            placeholder="Search by name, email, etc."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <input
+            type="date"
+            className='px-2 mx-2 col-4'
+            style={{ width: "fit-content", height: "fit-content", borderRadius: "5px" }}
+            value={searchDate}
+            onChange={(e) => setSearchDate(e.target.value)}
+          />
+        </div>
+        <div className='w-100 d-flex justify-content-center align-items-center table-responsive'>
+          <div className=" p-4" style={{width:"90%"}}>
             <table className="table table-striped table-hover">
               <thead>
                 <tr>

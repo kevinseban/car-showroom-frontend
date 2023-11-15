@@ -71,7 +71,7 @@ function AdminMessages() {
                     <input
                         type="text"
                         style={{ width: "fit-content", height: "fit-content", borderRadius: "5px" }}
-                        className='px-3 col-4'
+                        className='px-3 col-4 my-2'
                         placeholder="Search by name, email, etc."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
