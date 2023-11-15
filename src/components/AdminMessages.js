@@ -44,7 +44,7 @@ function AdminMessages () {
             <div className='content bg-dark text-white pt-2 overflow-hidden pt-xl-5 pt-lg-5'>
                 <h2 className='text-center'>Messages</h2><br />
                 <div className='w-100 d-flex justify-content-center align-items-center table-responsive'>
-                    <div className="w-50">
+                    <div className="w-75 p-4">
                         <table className='table table-striped table-hover'>
                         <thead>
                             <tr>

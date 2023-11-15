@@ -16,6 +16,7 @@ import Ebooking from './components/Ebooking';
 import { AdminLogin } from './components/AdminLogin';
 import AdminProfile from './components/AdminProfile';
 import AdminMessages from './components/AdminMessages';
+import AdminBookings from './components/AdminBookings';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
         <Route path='admin/car/:id' element={<EditCar />} />
         <Route path='admin/allCars' element={<AllCars />} />
         <Route path='admin/messages' element={<AdminMessages />} />
+        <Route path='admin/bookings' element={<AdminBookings/>}/>
       </Routes>
     </Router>
   );
