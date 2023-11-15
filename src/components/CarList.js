@@ -34,7 +34,7 @@ function CarList() {
           <h2 className='px-5 py-4 col-8'>Car List</h2>
           <input
             type="text"
-            style={{ width: "fit-content", height:"fit-content" }}
+            style={{ width: "fit-content", height:"fit-content",borderRadius:"1rem" }}
             className='px-3 col-4'
             placeholder="Search by car name"
             value={searchTerm}
@@ -43,9 +43,13 @@ function CarList() {
           />
         </div>
         <div className='d-flex flex-wrap justify-content-center gap-5 px-3 pb-3'>
-          {cars.map((car) => (
-            <CarCard key={car._id} carId={car._id} />
-          ))}
+          {cars.length === 0 ? (
+            <p>No cars found</p>
+          ) : (
+            cars.map((car) => (
+              <CarCard key={car._id} carId={car._id} />
+            ))
+          )}
         </div>
       </div>
       <Footer />
