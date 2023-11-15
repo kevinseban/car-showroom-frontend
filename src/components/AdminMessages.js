@@ -77,7 +77,7 @@ function AdminMessages () {
                                     <td>{mess.messEmail}</td>
                                     <td>{mess.messPhone}</td>
                                     <td>{mess.messMessage}</td>
-                                    <td>{new Date(mess.createdAt).toLocaleDateString()}</td>
+                                    <td>{new Date(mess.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' })}</td>
                                     <td><button type="button" className='btn btn-danger w-100' onClick={() => handleDelete(mess._id)}>Delete</button></td>
                                 </tr>
                                 )

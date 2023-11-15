@@ -46,9 +46,14 @@ function AdminHeader() {
                 </li>
               </>
             ) : (
+              <>
               <li className="nav-item">
-                <Link to="/admin/login" className="nav-link">Login</Link>
+                <Link to="/admin/login" className="nav-link">Admin Login</Link>
               </li>
+              <li className="nav-item">
+                <Link to="/login" className="nav-link">User Login</Link>
+              </li>
+              </>
             )}
           </ul>
         </div>
