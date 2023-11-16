@@ -12,19 +12,13 @@ code {
     monospace;
 }
 
-.log-page{
-  
+.log-page {
+
   background-color: black;
-  
+
 }
 
-/*.reg-page{
-  
-  background-color: black;
-  
-}*/
-
-.log{
+.log {
   backdrop-filter: blur(10px);
   margin: 10px;
   padding: 20px;
@@ -33,20 +27,9 @@ code {
   border-radius: 10px;
 }
 
-/*.home-page{
-  background-color: black !important;
-  background-image: none;
-  background-size: initial;
-  display: initial;
-  justify-content: initial;
-  align-items: initial;
-  height: initial;
-  width: initial;
-  font-family: initial; 
-  
-}*/
-
-.auth-form-container, .login-form, .register-form {
+.auth-form-container,
+.login-form,
+.register-form {
   display: flex;
   flex-direction: column;
 }
@@ -68,7 +51,7 @@ code {
   cursor: pointer;
 }
 
-.image{
+.image {
   text-align: center;
   background-color: black;
   height: 20%;
@@ -76,13 +59,13 @@ code {
   border-radius: 50%;
 }
 
-.prof{
+.prof {
   max-width: 60%;
   justify-content: center;
   align-items: center;
 }
 
-.form-div{
+.form-div {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -6,7 +6,8 @@
     background-color: rgb(255, 255, 255);
     transition: scale 0.25s;
 }
-.car-img{
+
+.car-img {
     border-radius: 1rem;
 }
 
@@ -19,28 +20,28 @@
     max-width: 500px;
 }
 
-.parent{
+.parent {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
 }
 
-.content{
+.content {
     flex-grow: 1;
 }
 
-.ft{
+.ft {
     justify-self: flex-end;
 }
 
-.img-slider-container{
+.img-slider-container {
     aspect-ratio: 6/3;
     max-width: 100%;
 }
 
 .img-slider-img {
-    object-fit:scale-down;
+    object-fit: scale-down;
     width: 100%;
     flex-shrink: 0;
     flex-grow: 0;
@@ -50,7 +51,7 @@
 
 .img-slider-btn {
     display: block;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     border: none;
     position: absolute;
     top: 0;
@@ -67,12 +68,15 @@
     height: 2rem;
     transition: scale 200ms;
 }
-.img-slider-btn:hover > *{    
+
+.img-slider-btn:hover>* {
     scale: 1.2 0.4;
 }
+
 .img-slider-btn:hover {
     background-color: rgba(0, 0, 0, 0.2);
 }
+
 .image-enlargement {
     position: fixed;
     top: 0;
@@ -100,4 +104,15 @@
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.booking-card {
+    transition: scale 0.25s;
+    border: 2px solid black;
+    border-radius: 1rem;
+    width: fit-content;
+}
+
+.booking-card:hover {
+    scale: 1.02;
 }

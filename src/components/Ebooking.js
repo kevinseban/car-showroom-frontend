@@ -24,6 +24,7 @@ function Ebooking() {
         if (!token) {
             navigate('/login');
         }
+        fetchUserProfile();
     }, [navigate]);
 
     useEffect(() => {
@@ -37,6 +38,28 @@ function Ebooking() {
             })
             .catch((error) => console.error('Error fetching car details:', error));
     }, [carId]);
+
+    const fetchUserProfile = async () => {
+        try {
+          const token = localStorage.getItem('token');
+    
+          if (!token) {
+            navigate('/login');
+            return;
+          }
+    
+          const response = await axios.get('http://localhost:8000/user/profile', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+    
+          setUsername(response.data.username);
+          console.log(response.data)
+        } catch (error) {
+          console.error('Error fetching user profile:', error);
+        }
+      };
 
     const resetForm = () => {
         setName('');
@@ -66,7 +89,7 @@ function Ebooking() {
         }
 
         try {
-            const response = await axios.post('http://localhost:8000/booking/newBooking', {
+            axios.post('http://localhost:8000/booking/newBooking', {
                 name,
                 email,
                 username,
@@ -132,11 +155,11 @@ function Ebooking() {
                                     className="form-control"
                                     placeholder="Username"
                                     aria-describedby="inputGroupPrepend"
-                                    required
+                                    disabled
+                                    required 
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                 />
-                                <div className="invalid-feedback">Please choose a username.</div>
                             </div>
                         </div>
                     </div>

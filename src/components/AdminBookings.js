@@ -87,7 +87,7 @@ function AdminBookings() {
           />
         </div>
         <div className='w-100 d-flex justify-content-center align-items-center table-responsive'>
-          <div className=" p-4" style={{width:"90%"}}>
+          <div className=" p-4" style={{ width: "90%" }}>
             <table className="table table-striped table-hover">
               <thead>
                 <tr>

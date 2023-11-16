@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from './Header';
 import Footer from './Footer';
+import UserBookings from './UserBookings';
 
 function EditProfileModal({ userProfile, onClose, onSave }) {
   const [editedProfile, setEditedProfile] = useState({ ...userProfile });
@@ -160,11 +161,12 @@ function UserProfile() {
       <div className='app parent'>
         <Header />
         <div className='content bg-dark text-white py-5 text-center'>
-          <h1>User Profile</h1>
-          <div>
+          <h3>User Profile</h3>
+          <div className='mt-4 lead'>
             <h5>Name: {userProfile.name}</h5>
             <p>Email: {userProfile.email}</p>
             <p>Username: {userProfile.username}</p>
+            <p>Phone: {userProfile.phoneNumber}</p>
             <button onClick={handleEditClick} className='btn btn-outline-light'>
               Edit Profile
             </button>
@@ -176,6 +178,7 @@ function UserProfile() {
               onSave={handleEditSave}
             />
           )}
+          <UserBookings username={userProfile.username} />
         </div>
         <Footer />
       </div>
