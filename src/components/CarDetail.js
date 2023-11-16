@@ -81,7 +81,7 @@ function CarDetail() {
             </ul>
           </div>
           <div className='container-fluid'>
-          <Link to='/booking' className="btn btn-primary w-50 p-1 mt-3 text-center" style={{ height: "fit-content" }}>E-book</Link>
+          <Link to={`/booking/${car._id}`} className="btn btn-primary w-50 p-1 mt-3 text-center" style={{ height: "fit-content" }}>E-book</Link>
           </div>
         </div>
       </div>

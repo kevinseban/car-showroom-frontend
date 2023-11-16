@@ -31,7 +31,7 @@ function App() {
         <Route path="car/:id" element={<CarDetail />} />
         <Route path="contact" element={<Contact />} />
         <Route path="profile" element={<UserProfile />} />
-        <Route path="booking" element={<Ebooking />} />
+        <Route path="booking/:id" element={<Ebooking />} />
         <Route path="admin" element={<AdminPanel/>}/>
         <Route path="admin/login" element={<AdminLogin/>}/>
         <Route path="admin/profile" element={<AdminProfile/>}/>

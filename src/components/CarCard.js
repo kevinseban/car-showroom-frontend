@@ -53,7 +53,7 @@ function CarCard(props) {
         </div>
         <Link to={`/car/${car._id}`} className="btn btn-outline-dark mt-2 px-4" style={{ height: "fit-content" }}>Explore</Link>
       </div>
-      <Link to='/booking' className="btn btn-outline-dark mt-2 px-4" style={{ height: "fit-content" }}>E-book</Link>
+      <Link to={`/booking/${car._id}`} className="btn btn-outline-dark mt-2 px-4" style={{ height: "fit-content" }}>E-book</Link>
     </div>
   );
 }

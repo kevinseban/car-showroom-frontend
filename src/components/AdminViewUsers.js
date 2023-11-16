@@ -12,12 +12,26 @@ function AdminViewUsers() {
     email: '',
     phoneNumber: '',
   });
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     axios.get('http://localhost:8000/user/getAll')
       .then(response => setUsers(response.data))
       .catch(error => console.error('Error fetching users:', error));
-  }, []);
+  }, []);  
+
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8000/user/search/${searchTerm}`);
+      setUsers(response.data);
+    } catch (error) {
+      console.error('Error searching for users:', error);
+    }
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [searchTerm]);
 
   const deleteUser = (userId) => {
     if (window.confirm("Are you sure you want to delete this User?")) {
@@ -72,105 +86,120 @@ function AdminViewUsers() {
     <div className="parent">
       <AdminHeader />
       <div className="content w-100 p-5 bg-dark text-white">
-        <h1>User Management</h1><br /><br />
-        <table className="table table-dark table-striped">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Username</th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Phone Number</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr key={user._id}>
-                <th scope="row">{index + 1}</th>
-                <td>
-                  {editingUserId === user._id ? (
-                    <input
-                      type="text"
-                      name="username"
-                      value={editFormData.username}
-                      onChange={updateFormData}
-                    />
-                  ) : (
-                    user.username
-                  )}
-                </td>
-                <td>
-                  {editingUserId === user._id ? (
-                    <input
-                      type="text"
-                      name="name"
-                      value={editFormData.name}
-                      onChange={updateFormData}
-                    />
-                  ) : (
-                    user.name
-                  )}
-                </td>
-                <td>
-                  {editingUserId === user._id ? (
-                    <input
-                      type="text"
-                      name="email"
-                      value={editFormData.email}
-                      onChange={updateFormData}
-                    />
-                  ) : (
-                    user.email
-                  )}
-                </td>
-                <td>
-                  {editingUserId === user._id ? (
-                    <input
-                      type="text"
-                      name="phoneNumber"
-                      value={editFormData.phoneNumber}
-                      onChange={updateFormData}
-                    />
-                  ) : (
-                    user.phoneNumber
-                  )}
-                </td>
-                <td>
-                  {editingUserId === user._id ? (
-                    <div>
+        <div className='row justify-content-center align-items-center'>
+          <h2 className='px-5 py-4 col-8'>User Management</h2>
+          <input
+            type="text"
+            style={{ width: "fit-content", height: "fit-content", borderRadius: "5px" }}
+            className='px-3 col-4'
+            placeholder="Search by username, name, email, etc"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyUp={handleSearch}
+          />
+        </div>
+        <div className='w-100 d-flex justify-content-center align-items-center table-responsive'>
+          <div className=" p-4" style={{ width: "90%" }}>
+            <table className="table table-striped table-hover text-center">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Username</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Phone Number</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((user, index) => (
+                  <tr key={user._id}>
+                    <th scope="row">{index + 1}</th>
+                    <td>
+                      {editingUserId === user._id ? (
+                        <input
+                          type="text"
+                          name="username"
+                          value={editFormData.username}
+                          onChange={updateFormData}
+                        />
+                      ) : (
+                        user.username
+                      )}
+                    </td>
+                    <td>
+                      {editingUserId === user._id ? (
+                        <input
+                          type="text"
+                          name="name"
+                          value={editFormData.name}
+                          onChange={updateFormData}
+                        />
+                      ) : (
+                        user.name
+                      )}
+                    </td>
+                    <td>
+                      {editingUserId === user._id ? (
+                        <input
+                          type="text"
+                          name="email"
+                          value={editFormData.email}
+                          onChange={updateFormData}
+                        />
+                      ) : (
+                        user.email
+                      )}
+                    </td>
+                    <td>
+                      {editingUserId === user._id ? (
+                        <input
+                          type="text"
+                          name="phoneNumber"
+                          value={editFormData.phoneNumber}
+                          onChange={updateFormData}
+                        />
+                      ) : (
+                        user.phoneNumber
+                      )}
+                    </td>
+                    <td className='d-flex flex-row flex-wrap gap-2 justify-content-center align-items-center'>
+                      {editingUserId === user._id ? (
+                        <div className='d-flex flex-row flex-wrap gap-2 justify-content-center align-items-center'>
+                          <button
+                            className="btn btn-success mx-2"
+                            onClick={() => submitEditForm(user._id)}
+                          >
+                            Save
+                          </button>
+                          <button
+                            className="btn btn-secondary mx-2"
+                            onClick={cancelEditing}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          className="btn btn-warning mx-2"
+                          onClick={() => startEditingUser(user._id)}
+                        >
+                          Edit
+                        </button>
+                      )}
                       <button
-                        className="btn btn-success mr-2"
-                        onClick={() => submitEditForm(user._id)}
+                        className="btn btn-danger"
+                        onClick={() => deleteUser(user._id)}
                       >
-                        Save
+                        Delete
                       </button>
-                      <button
-                        className="btn btn-secondary"
-                        onClick={cancelEditing}
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  ) : (
-                    <button
-                      className="btn btn-warning mr-2"
-                      onClick={() => startEditingUser(user._id)}
-                    >
-                      Edit
-                    </button>
-                  )}
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => deleteUser(user._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
       <Footer />
     </div>

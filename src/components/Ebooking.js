@@ -1,51 +1,52 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { useEffect, useState } from 'react';
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
-import { useNavigate } from 'react-router-dom';
 
 function Ebooking() {
-
+    const carId = useParams().id;
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            // Redirect to admin login if adminToken is not present
-            navigate('/login');
-        }
-    }, [navigate]);
-
+    const [carDetails, setCarDetails] = useState('');
+    const [selectedColor, setSelectedColor] = useState('');
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
     const [pincode, setPincode] = useState('');
-    const [carname, setCarname] = useState('');
-    const [carcolor, setCarcolor] = useState('');
-
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [validated, setValidated] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login');
+        }
+    }, [navigate]);
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8000/cars/${carId}`)
+            .then((response) => {
+                setCarDetails(response.data);
+                if (response.data.colors.length > 0) {
+                    setSelectedColor(response.data.colors[0].name);
+                }
+            })
+            .catch((error) => console.error('Error fetching car details:', error));
+    }, [carId]);
 
     const resetForm = () => {
         setName('');
-        setCarcolor('');
-        setCarname('');
         setPincode('');
         setAddress('');
         setEmail('');
         setPhone('');
         setUsername('');
-    }
-
-    const [validated, setValidated] = useState(false);
+        setErrorMessage(null);
+    };
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -53,181 +54,169 @@ function Ebooking() {
             event.preventDefault();
             event.stopPropagation();
         }
-
         setValidated(true);
-    };
-
-    const validatePhoneNumber = (number) => {
-        return /^\d{10}$/.test(number);
-    };
-
-    const validateEmail = (email) => {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     };
 
     const submit = async (e) => {
         e.preventDefault();
 
-        if (!name || !email || !username || !phone || !address || !pincode || !carname || !carcolor) {
-            setErrorMessage("All fields are required!");
-            return;
-        }
-
-        if (!validatePhoneNumber(phone)) {
-            setErrorMessage("Enter a valid phone number.");
-            return;
-        }
-
-        if (!validateEmail(email)) {
-            setErrorMessage("Enter a valid email address.");
+        if (!name || !email || !username || !phone || !address || !pincode) {
+            setErrorMessage('All fields are required!');
             return;
         }
 
         try {
-            const response = await axios.post("http://localhost:8000/booking/newBooking", {
+            const response = await axios.post('http://localhost:8000/booking/newBooking', {
                 name,
                 email,
                 username,
                 phone,
                 address,
                 pincode,
-                carname,
-                carcolor,
+                carname: carDetails.name,
+                carcolor: selectedColor,
             });
 
-            console.log("Booked successfully");
-            setSuccessMessage("Booked Successfully");
+            console.log('Booked successfully');
+            setSuccessMessage('Booked Successfully');
             navigate('/profile');
-
         } catch (error) {
-            console.error("Error booking: ", error);
+            console.error('Error booking: ', error);
             if (error.response && error.response.status === 400) {
-                setErrorMessage("Something went wrong");
+                setErrorMessage('Something went wrong');
             } else {
-                setErrorMessage("An error occurred while booking.");
+                setErrorMessage('An error occurred while booking.');
             }
         }
-    }
+    };
 
     return (
-        <div className='bg-dark '>
+        <div className="bg-dark text-white">
             <Header />
-            <br />
-            <br />
-            <center className='px-2'>
+            <div className="container text-center">
                 <h1 className="text-light display-2 mb-2">E-Booking</h1>
-            </center>
-            <div className='form-div px-2 container'>
-                <Form className='text-light' noValidate validated={validated} onSubmit={handleSubmit} action='POST'>
+            </div>
+            <div className="container form-div">
+                <form noValidate validated={validated} onSubmit={handleSubmit} action="POST">
                     <br />
                     <hr />
                     <br />
-                    <h3 className='text-light bolder'>Personal Details</h3>
-                    <Row className="mb-3">
-                        <Form.Group as={Col} md="4" controlId="validationCustom01">
-                            <Form.Label>Full name</Form.Label>
-                            <Form.Control
-                                required
+                    <h3 className="text-light font-weight-bold">Personal Details</h3>
+                    <div className="row mb-3">
+                        <div className="col-md-4">
+                            <input
                                 type="text"
+                                className="form-control"
                                 placeholder="Full name"
+                                required
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
-                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col} md="4" controlId="validationCustom02">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                required
+                            <div className="invalid-feedback">Looks good!</div>
+                        </div>
+                        <div className="col-md-4">
+                            <input
                                 type="text"
+                                className="form-control"
                                 placeholder="Email"
+                                required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
-                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                            <Form.Label>Username</Form.Label>
-                            <InputGroup hasValidation>
-                                <Form.Control
+                            <div className="invalid-feedback">Looks good!</div>
+                        </div>
+                        <div className="col-md-4">
+                            <div className="input-group">
+                                <input
                                     type="text"
+                                    className="form-control"
                                     placeholder="Username"
                                     aria-describedby="inputGroupPrepend"
                                     required
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
                                 />
-                                <Form.Control.Feedback type="invalid">
-                                    Please choose a username.
-                                </Form.Control.Feedback>
-                            </InputGroup>
-                        </Form.Group>
-                    </Row>
-                    <Row className="mb-3">
-                        <Form.Group as={Col} md="6" controlId="validationCustom01">
-                            <Form.Label>Mobile number</Form.Label>
-                            <Form.Control
-                                required
+                                <div className="invalid-feedback">Please choose a username.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row mb-3">
+                        <div className="col-md-6">
+                            <input
                                 type="text"
+                                className="form-control"
                                 placeholder="Mobile number"
+                                required
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
                             />
-                            <Form.Control.Feedback type="invalid">
-                                Please provide a valid Phone number.
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                    </Row>
-                    <Row className="mb-3">
-                        <Form.Group as={Col} md="6" controlId="validationCustom03">
-                            <Form.Label>Address</Form.Label>
-                            <Form.Control type="text" placeholder="Address" required value={address} onChange={(e) => setAddress(e.target.value)} />
-                            <Form.Control.Feedback type="invalid">
-                                Please provide a valid address.
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col} md="3" controlId="validationCustom05">
-                            <Form.Label>Pincode</Form.Label>
-                            <Form.Control type="text" placeholder="Pincode" required value={pincode} onChange={(e) => setPincode(e.target.value)} />
-                            <Form.Control.Feedback type="invalid">
-                                Please provide a valid Pincode.
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                    </Row>
+                            <div className="invalid-feedback">Please provide a valid Phone number.</div>
+                        </div>
+                    </div>
+                    <div className="row mb-3">
+                        <div className="col-md-6">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Address"
+                                required
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                            />
+                            <div className="invalid-feedback">Please provide a valid address.</div>
+                        </div>
+                        <div className="col-md-3">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Pincode"
+                                required
+                                value={pincode}
+                                onChange={(e) => setPincode(e.target.value)}
+                            />
+                            <div className="invalid-feedback">Please provide a valid Pincode.</div>
+                        </div>
+                    </div>
                     <br />
                     <hr />
                     <br />
                     <h3>Car Details</h3>
-                    <Row className='mb-3'>
-                        <Form.Group as={Col} md="6" controlId="validationCustom08">
-                            <Form.Label>Car Name</Form.Label>
-                            <Form.Control type="text" placeholder="Car Name" required value={carname} onChange={(e) => setCarname(e.target.value)} />
-                            <Form.Control.Feedback type="invalid">
-                                Please provide a valid Car.
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                        <Form.Group as={Col} md="6" controlId="validationCustom08">
-                            <Form.Label>Color</Form.Label>
-                            <Form.Control type="text" placeholder="Color" required value={carcolor} onChange={(e) => setCarcolor(e.target.value)} />
-                            <Form.Control.Feedback type="invalid">
-                                Please provide a valid Color.
-                            </Form.Control.Feedback>
-                        </Form.Group>
-                    </Row>
+                    <div className="row mb-3">
+                        <div className="col-md-6">
+                            <input type="text" disabled className="form-control" placeholder="Car Name" required value={carDetails.name} />
+                            <div className="invalid-feedback">Please provide a valid Car.</div>
+                        </div>
+                        <div className="col-md-6">
+                            <select className="form-select" required value={selectedColor} onChange={(e) => setSelectedColor(e.target.value)}>
+                                {carDetails.colors &&
+                                    carDetails.colors.length > 0 &&
+                                    carDetails.colors.map((color) => (
+                                        <option key={color.name} value={color.name}>
+                                            {color.name}
+                                        </option>
+                                    ))}
+                            </select>
+                            <div className="invalid-feedback">Please choose a valid Color.</div>
+                        </div>
+                    </div>
                     <br />
                     <br />
-                    <span>
-                        <center>
-                            {errorMessage && <div className="alert alert-danger w-50" >{errorMessage}</div>}
-                            {successMessage && <div className="alert alert-success w-50" >{successMessage}</div>}
-                            <Button type="submit" className='mx-2' onClick={submit}>Submit</Button>
-                            <Button type="reset" className='mx-2' value="Reset Form" onClick={resetForm}>Reset</Button>
-                        </center>
-                    </span>
+                    <div className="text-center w-100 d-flex flex-row flex-wrap justify-content-center align-items-center">
+                        {errorMessage && <div className="alert alert-danger w-50">{errorMessage}</div>}
+                        {successMessage && <div className="alert alert-success w-50">{successMessage}</div>}
+                    </div>
+                    <div className="text-center">
+                        <button type="submit" className="btn btn-primary mx-2" onClick={submit}>
+                            Submit
+                        </button>
+                        <button type="reset" className="btn btn-secondary mx-2" value="Reset Form" onClick={resetForm}>
+                            Reset
+                        </button>
+                    </div>
                     <br />
                     <hr />
                     <br />
-                </Form>
+                </form>
             </div>
             <Footer />
         </div>
