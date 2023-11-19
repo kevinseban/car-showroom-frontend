@@ -14,7 +14,7 @@ function CarDetail() {
     // Fetch car data from the server based on the provided car ID
     const fetchCarData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/cars/${id}`);
+        const response = await axios.get(`https://car-showroom-backend.onrender.com/cars/${id}`);
         setCar(response.data); // Assuming the server returns the car data as JSON
       } catch (error) {
         console.error('Error fetching car details:', error);

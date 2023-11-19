@@ -8,7 +8,7 @@ const UserBookings = ({ username }) => {
     // Define fetchUserBookings outside the useEffect
     const fetchUserBookings = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/booking/getBookings/${username}`);
+            const response = await axios.get(`https://car-showroom-backend.onrender.com/booking/getBookings/${username}`);
             const data = response.data;
 
             setBookings(data);
@@ -26,7 +26,7 @@ const UserBookings = ({ username }) => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:8000/booking/deleteBooking/${id}`);
+            await axios.delete(`https://car-showroom-backend.onrender.com/booking/deleteBooking/${id}`);
             // Refresh bookings after deletion
             fetchUserBookings();
         } catch (error) {

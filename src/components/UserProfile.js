@@ -103,7 +103,7 @@ function UserProfile() {
         return;
       }
 
-      const response = await axios.get('http://localhost:8000/user/profile', {
+      const response = await axios.get('https://car-showroom-backend.onrender.com/user/profile', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -137,7 +137,7 @@ function UserProfile() {
         return;
       }
 
-      const response = await axios.put('http://localhost:8000/user/profile', editedProfile, {
+      const response = await axios.put('https://car-showroom-backend.onrender.com/user/profile', editedProfile, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

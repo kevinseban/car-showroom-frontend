@@ -20,7 +20,7 @@ export const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:8000/user/generateToken", {
+            const response = await axios.post("https://car-showroom-backend.onrender.com/user/generateToken", {
                 username,
                 password,
             });

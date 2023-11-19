@@ -30,7 +30,7 @@ function EditCar() {
     //GEt Car Data for the ._id
     const fetchCarData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/cars/${id}`);
+        const response = await axios.get(`https://car-showroom-backend.onrender.com/cars/${id}`);
         setCar(response.data);
       } catch (error) {
         console.error('Error fetching car details:', error);
@@ -88,7 +88,7 @@ function EditCar() {
   const collectData = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/cars/addEdit", {
+      const response = await axios.post("https://car-showroom-backend.onrender.com/cars/addEdit", {
         carName,
         colorName,
         imageUrls,
@@ -121,7 +121,7 @@ function EditCar() {
   const handleSaveChanges = async () => {
     try {
       //Make an API call to update the car data
-      await axios.put(`http://localhost:8000/cars/update/${id}`, car);
+      await axios.put(`https://car-showroom-backend.onrender.com/cars/update/${id}`, car);
       setEditMode(false);
       window.location.reload();
     } catch (error) {
@@ -167,7 +167,7 @@ function EditCar() {
         await deleteObject(imageRef);
   
         // Make an API call to delete the image
-        await axios.delete(`http://localhost:8000/cars/deleteImage/${id}/${selectedColorIndex}/${imageIndex}`);
+        await axios.delete(`https://car-showroom-backend.onrender.com/cars/deleteImage/${id}/${selectedColorIndex}/${imageIndex}`);
   
         // Update the state to reflect the deleted image
         setCar((prevCar) => {
@@ -192,7 +192,7 @@ function EditCar() {
         await deleteObject(mainImageRef);
   
         // Make an API call to delete the main image
-        await axios.delete(`http://localhost:8000/cars/deleteMainImage/${id}`);
+        await axios.delete(`https://car-showroom-backend.onrender.com/cars/deleteMainImage/${id}`);
 
         window.location.reload();
       } catch (error) {

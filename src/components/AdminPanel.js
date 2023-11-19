@@ -35,7 +35,7 @@ function AdminPanel() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8000/cars/add", {
+      const response = await axios.post("https://car-showroom-backend.onrender.com/cars/add", {
         carName,
         carPrice,
         carColor,

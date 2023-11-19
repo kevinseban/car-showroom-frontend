@@ -18,7 +18,7 @@ function AdminProfile() {
         return;
       }
 
-      const response = await axios.get('http://localhost:8000/admin/profile', {
+      const response = await axios.get('https://car-showroom-backend.onrender.com/admin/profile', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

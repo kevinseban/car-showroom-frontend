@@ -20,7 +20,7 @@ function AdminMessages() {
 
     useEffect(() => {
         // Fetch messages on component mount
-        axios.get('http://localhost:8000/getMessage')
+        axios.get('https://car-showroom-backend.onrender.com/getMessage')
             .then((response) => setMess(response.data))
             .catch((error) => console.log(error));
     }, []);
@@ -32,11 +32,11 @@ function AdminMessages() {
                 let response;
 
                 if (searchTerm === "" && searchDate === "") {
-                    response = await axios.get('http://localhost:8000/getMessage');
+                    response = await axios.get('https://car-showroom-backend.onrender.com/getMessage');
                 } else if (searchDate !== "") {
-                    response = await axios.get(`http://localhost:8000/searchMessagesByDate/${searchDate}`);
+                    response = await axios.get(`https://car-showroom-backend.onrender.com/searchMessagesByDate/${searchDate}`);
                 } else {
-                    response = await axios.get(`http://localhost:8000/searchMessages/${searchTerm}`);
+                    response = await axios.get(`https://car-showroom-backend.onrender.com/searchMessages/${searchTerm}`);
                 }
 
                 setMess(response.data);
@@ -51,7 +51,7 @@ function AdminMessages() {
 
     const handleDelete = (id) => {
         if (window.confirm(`Are you sure you want to delete this complaint`)) {
-            axios.post('http://localhost:8000/deleteMessage', null, {
+            axios.post('https://car-showroom-backend.onrender.com/deleteMessage', null, {
                 params: { messid: id }
             })
                 .then((res) => {

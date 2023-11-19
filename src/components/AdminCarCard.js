@@ -13,7 +13,7 @@ function AdminCarCard(props) {
         // Fetch car data from the server based on the provided car ID
         const fetchCarData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/cars/${props.carId}`);
+                const response = await axios.get(`https://car-showroom-backend.onrender.com/cars/${props.carId}`);
                 setCar(response.data);
             } catch (error) {
                 console.error('Error fetching car details:', error);
@@ -26,13 +26,13 @@ function AdminCarCard(props) {
     const handleDeleteCar = async (id) => {
         try {
             // Fetch detailed car information
-            const response = await axios.get(`http://localhost:8000/cars/${id}`);
+            const response = await axios.get(`https://car-showroom-backend.onrender.com/cars/${id}`);
             const carData = response.data;
 
             // Confirm deletion
             if (window.confirm(`Are you sure you want to delete this car?`)) {
                 // Delete car from the server
-                await axios.post(`http://localhost:8000/cars/delete`, null, {
+                await axios.post(`https://car-showroom-backend.onrender.com/cars/delete`, null, {
                     params: { carid: id },
                 });
 

@@ -15,14 +15,14 @@ function AdminViewUsers() {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:8000/user/getAll')
+    axios.get('https://car-showroom-backend.onrender.com/user/getAll')
       .then(response => setUsers(response.data))
       .catch(error => console.error('Error fetching users:', error));
   }, []);  
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/user/search/${searchTerm}`);
+      const response = await axios.get(`https://car-showroom-backend.onrender.com/user/search/${searchTerm}`);
       setUsers(response.data);
     } catch (error) {
       console.error('Error searching for users:', error);
@@ -35,7 +35,7 @@ function AdminViewUsers() {
 
   const deleteUser = (userId) => {
     if (window.confirm("Are you sure you want to delete this User?")) {
-      axios.delete(`http://localhost:8000/user/delete/${userId}`)
+      axios.delete(`https://car-showroom-backend.onrender.com/user/delete/${userId}`)
         .then(response => {
           setUsers(users.filter(user => user._id !== userId));
           console.log(response.data.message);
@@ -73,7 +73,7 @@ function AdminViewUsers() {
   };
 
   const submitEditForm = (userId) => {
-    axios.put(`http://localhost:8000/user/update/${userId}`, editFormData)
+    axios.put(`https://car-showroom-backend.onrender.com/user/update/${userId}`, editFormData)
       .then(response => {
         setUsers(users.map(user => (user._id === userId ? response.data.user : user)));
         cancelEditing();

@@ -29,7 +29,7 @@ function Ebooking() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8000/cars/${carId}`)
+            .get(`https://car-showroom-backend.onrender.com/cars/${carId}`)
             .then((response) => {
                 setCarDetails(response.data);
                 if (response.data.colors.length > 0) {
@@ -48,7 +48,7 @@ function Ebooking() {
             return;
           }
     
-          const response = await axios.get('http://localhost:8000/user/profile', {
+          const response = await axios.get('https://car-showroom-backend.onrender.com/user/profile', {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -89,7 +89,7 @@ function Ebooking() {
         }
 
         try {
-            axios.post('http://localhost:8000/booking/newBooking', {
+            axios.post('https://car-showroom-backend.onrender.com/booking/newBooking', {
                 name,
                 email,
                 username,

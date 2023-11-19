@@ -12,9 +12,9 @@ function CarList() {
     try {
       var response;
       if (searchTerm === "") {
-        response = await axios.get('http://localhost:8000/cars/all');
+        response = await axios.get('https://car-showroom-backend.onrender.com/cars/all');
       } else {
-        response = await axios.get(`http://localhost:8000/cars/search/${searchTerm}`);
+        response = await axios.get(`https://car-showroom-backend.onrender.com/cars/search/${searchTerm}`);
       }
       setCars(response.data);
     } catch (error) {

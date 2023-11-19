@@ -21,7 +21,7 @@ export const AdminLogin = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:8000/admin/generateToken", {
+            const response = await axios.post("https://car-showroom-backend.onrender.com/admin/generateToken", {
                 username,
                 password,
             });

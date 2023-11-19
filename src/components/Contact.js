@@ -17,7 +17,7 @@ function Contact() {
         e.preventDefault();
         alert("Message has been sent!");
         try {
-            const response = await axios.post("http://localhost:8000/message", {
+            const response = await axios.post("https://car-showroom-backend.onrender.com/message", {
                 messName,
                 messEmail,
                 messPhone,

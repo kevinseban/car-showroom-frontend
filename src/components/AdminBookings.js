@@ -28,11 +28,11 @@ function AdminBookings() {
         let response;
 
         if (searchTerm === "" && searchDate === "") {
-          response = await axios.get('http://localhost:8000/booking/getBookings');
+          response = await axios.get('https://car-showroom-backend.onrender.com/booking/getBookings');
         } else if (searchDate !== "") {
-          response = await axios.get(`http://localhost:8000/booking/searchBookingsByDate/${searchDate}`);
+          response = await axios.get(`https://car-showroom-backend.onrender.com/booking/searchBookingsByDate/${searchDate}`);
         } else {
-          response = await axios.get(`http://localhost:8000/booking/searchBookings/${searchTerm}`);
+          response = await axios.get(`https://car-showroom-backend.onrender.com/booking/searchBookings/${searchTerm}`);
         }
 
         setBookings(response.data);
@@ -47,7 +47,7 @@ function AdminBookings() {
 
   const fetchBookings = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/booking/getBookings');
+      const response = await axios.get('https://car-showroom-backend.onrender.com/booking/getBookings');
       setBookings(response.data);
     } catch (error) {
       console.error('Error fetching bookings:', error);
@@ -56,7 +56,7 @@ function AdminBookings() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/booking/deleteBooking/${id}`);
+      await axios.delete(`https://car-showroom-backend.onrender.com/booking/deleteBooking/${id}`);
       // Refresh bookings after deletion
       fetchBookings();
     } catch (error) {
