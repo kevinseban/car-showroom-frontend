@@ -12,8 +12,7 @@ export const AdminLogin = () => {
     useEffect(() => {
         const token = localStorage.getItem('adminToken');
         if (token) {
-            // Redirect to the previous page or a default page if there's no previous page
-            window.history.back();
+            history("/admin");
         }
     }, [history]);
 

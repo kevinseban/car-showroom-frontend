@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 
 export const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            // Redirect to the previous page or a default page if there's no previous page
-            window.history.back();
+            navigate("/profile");
         }
     }, []);
 
